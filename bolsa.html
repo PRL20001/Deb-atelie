@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Bolsas — Deb/Ateliê</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --pink-dark: #F4A7B9;
+            --pink-bg:   #FFE2F0;
+            --text-dark: #1a1a1a;
+            --gold:      #C9A96E;
+            --green:     #939D7A;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'DM Sans', sans-serif; background: #fdf6f0; color: var(--text-dark); overflow-x: hidden; }
+
+        /* ══ HEADER DA PÁGINA ══ */
+        .page-header {
+            position: relative;
+            background: var(--pink-bg);
+            overflow: hidden;
+            padding: 0;
+        }
+
+        /* faixa ondulada decorativa no topo */
+        .page-header svg {
+            display: block;
+            width: 100%;
+            height: 90px;
+        }
+
+        .page-header-content {
+            padding: 30px 20px 40px;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* botão voltar */
+        .btn-voltar {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            text-decoration: none;
+            color: #fff;
+            background: var(--green);
+            padding: 8px 18px;
+            border-radius: 25px;
+            font-size: 0.88rem;
+            font-weight: 500;
+            margin-bottom: 22px;
+            transition: all 0.25s;
+            box-shadow: 0 3px 10px rgba(147,157,122,0.3);
+        }
+        .btn-voltar:hover { transform: translateX(-3px); filter: brightness(1.1); }
+
+        .page-chapter {
+            font-family: 'Lora', serif;
+            font-style: italic;
+            font-size: 0.95rem;
+            color: #b09080;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .page-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2.4rem, 7vw, 4rem);
+            font-weight: 500;
+            color: var(--text-dark);
+            line-height: 1;
+            margin-bottom: 10px;
+        }
+
+        .page-divider {
+            width: 60px;
+            height: 2px;
+            background: var(--gold);
+            margin: 16px auto 0;
+        }
+
+        /* ══ NAV ══ */
+        nav {
+            background: white;
+            padding: 13px 20px;
+            display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+        nav a {
+            text-decoration: none; color: #fff; font-weight: 500; font-size: 0.88rem;
+            padding: 7px 16px; border-radius: 25px; transition: all 0.3s;
+            background: var(--green);
+            box-shadow: 0 3px 8px rgba(147,157,122,0.25);
+        }
+        nav a:hover { transform: translateY(-2px); filter: brightness(1.1); }
+        nav a.ativo { background: #6e7a5a; }
+
+        /* ══ PRODUTOS ══ */
+        .produtos {
+            padding: 60px 20px 80px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        /* filtros */
+        .filtros {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 48px;
+        }
+        .filtro-btn {
+            padding: 7px 18px;
+            border-radius: 20px;
+            border: 1.5px solid var(--pink-dark);
+            background: transparent;
+            color: var(--text-dark);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.25s;
+        }
+        .filtro-btn:hover,
+        .filtro-btn.ativo { background: var(--pink-dark); color: white; border-color: var(--pink-dark); }
+
+        /* grid de cards */
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 28px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.07);
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+        .card:hover { transform: translateY(-7px); box-shadow: 0 14px 32px rgba(0,0,0,0.12); }
+
+        .card-img-wrap {
+            position: relative;
+            overflow: hidden;
+            height: 260px;
+        }
+        .card-img-wrap img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+        .card:hover .card-img-wrap img { transform: scale(1.06); }
+
+        .card-tag {
+            position: absolute;
+            top: 14px; left: 14px;
+            background: var(--green);
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 500;
+            padding: 4px 12px;
+            border-radius: 20px;
+            letter-spacing: 0.3px;
+        }
+
+        .card-body {
+            padding: 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .card-body h3 {
+            font-family: 'Lora', serif;
+            font-size: 1.1rem;
+            margin-bottom: 7px;
+            color: var(--text-dark);
+        }
+        .card-desc {
+            font-size: 0.88rem;
+            color: #7a5a5a;
+            line-height: 1.6;
+            margin-bottom: 14px;
+            flex: 1;
+        }
+        .card-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-top: auto;
+        }
+        .preco {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--pink-dark);
+        }
+        .preco span {
+            font-size: 0.82rem;
+            color: #bba;
+            text-decoration: line-through;
+            margin-left: 5px;
+            font-weight: 400;
+        }
+        .btn-comprar {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 9px 18px;
+            background: var(--green);
+            color: white;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.88rem;
+            transition: all 0.25s;
+            white-space: nowrap;
+            border: none; cursor: pointer;
+            font-family: 'DM Sans', sans-serif;
+        }
+        .btn-comprar:hover { filter: brightness(1.12); transform: translateY(-1px); box-shadow: 0 6px 14px rgba(147,157,122,0.4); }
+
+        /* ══ PAGINAÇÃO LIVRO ══ */
+        .book-nav {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            padding: 50px 20px 30px;
+            border-top: 1px solid #ecddd6;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        .book-nav-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: #fff;
+            background: var(--green);
+            padding: 10px 22px;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.25s;
+            box-shadow: 0 3px 10px rgba(147,157,122,0.3);
+        }
+        .book-nav-btn:hover { filter: brightness(1.1); box-shadow: 0 7px 18px rgba(147,157,122,0.45); }
+        .book-nav-btn.prev:hover { transform: translateX(-3px); }
+        .book-nav-btn.next:hover { transform: translateX(3px); }
+
+        .book-page-indicator {
+            font-family: 'Lora', serif;
+            font-style: italic;
+            font-size: 1rem;
+            color: #b09080;
+        }
+        .book-page-indicator strong {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: normal;
+            font-size: 1.15rem;
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        /* ══ FOOTER ══ */
+        footer {
+            background: white;
+            padding: 30px 20px;
+            text-align: center;
+            border-top: 1px solid #f0e8ec;
+        }
+        .footer-text { color: #9a7a7a; font-size: 0.83rem; margin-top: 7px; line-height: 1.8; }
+
+        .whatsapp { position:fixed;bottom:22px;right:22px;background:#25d366;color:white;border-radius:50px;padding:11px 17px;text-decoration:none;font-weight:500;font-size:.88rem;box-shadow:0 5px 16px rgba(37,211,102,.35);display:flex;align-items:center;gap:7px;transition:all .3s;z-index:1000; }
+        .whatsapp:hover { transform:scale(1.05); }
+
+        
+
+        @media(max-width:600px){
+            .cards { grid-template-columns: 1fr; max-width: 380px; margin: 0 auto; }
+            .card-img-wrap { height: 220px; }
+        }
+/* ═══════════════════════════════════════════════
+   EFEITO VIRAR PÁGINA — CSS
+═══════════════════════════════════════════════ */
+#pageFlipOverlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    pointer-events: none;
+    perspective: 2000px;
+}
+
+/* metade base das duas partes */
+.flip-half {
+    position: absolute;
+    top: 0;
+    width: 50%;
+    height: 100%;
+}
+
+/* ── LADO DIREITO — a página que vira ── */
+.flip-right {
+    right: 0;
+    transform-origin: left center;
+    transform-style: preserve-3d;
+    /* papel creme com linhas */
+    background:
+        repeating-linear-gradient(
+            to bottom,
+            transparent 0px,
+            transparent 30px,
+            rgba(200,160,140,0.18) 30px,
+            rgba(200,160,140,0.18) 31px
+        ),
+        linear-gradient(to right, #fdf8f3, #faf2eb);
+    box-shadow: -6px 0 24px rgba(0,0,0,0.18);
+    border-left: 1px solid #e8d5c4;
+}
+
+/* verso da página (aparece quando vira — cor ligeiramente diferente) */
+.flip-right-back {
+    position: absolute;
+    inset: 0;
+    backface-visibility: hidden;
+    transform: rotateY(180deg);
+    background: linear-gradient(to left, #f9f0e8, #f2e8df);
+    background-image:
+        repeating-linear-gradient(
+            to bottom,
+            transparent 0px,
+            transparent 30px,
+            rgba(180,140,120,0.15) 30px,
+            rgba(180,140,120,0.15) 31px
+        ),
+        linear-gradient(to left, #f9f0e8, #f2e8df);
+}
+
+/* ── LADO ESQUERDO — fica estático, simula a nova página embaixo ── */
+.flip-left {
+    left: 0;
+    background:
+        repeating-linear-gradient(
+            to bottom,
+            transparent 0px,
+            transparent 30px,
+            rgba(200,160,140,0.12) 30px,
+            rgba(200,160,140,0.12) 31px
+        ),
+        linear-gradient(to left, #fdf8f3, #faf4ee);
+    opacity: 0;
+    border-right: 1px solid #e8d5c4;
+}
+
+/* ── SOMBRA CENTRAL (lombada) ── */
+.flip-center-shadow {
+    position: absolute;
+    top: 0;
+    left: calc(50% - 40px);
+    width: 80px;
+    height: 100%;
+    background: linear-gradient(
+        to right,
+        transparent 0%,
+        rgba(0,0,0,0.10) 30%,
+        rgba(0,0,0,0.22) 50%,
+        rgba(0,0,0,0.10) 70%,
+        transparent 100%
+    );
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* ── ANIMAÇÕES ── */
+
+/* página direita vira para a esquerda */
+@keyframes pageFlipRight {
+    0%   { transform: perspective(2000px) rotateY(0deg);    box-shadow: -6px 0 24px rgba(0,0,0,0.18); }
+    30%  { box-shadow: -20px 0 40px rgba(0,0,0,0.28); }
+    60%  { transform: perspective(2000px) rotateY(-100deg); box-shadow: -4px 0 12px rgba(0,0,0,0.1); }
+    100% { transform: perspective(2000px) rotateY(-180deg); box-shadow: none; opacity: 0.2; }
+}
+
+/* lado esquerdo aparece gradualmente */
+@keyframes pageRevealLeft {
+    0%   { opacity: 0; }
+    20%  { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+/* sombra central pulsa e some */
+@keyframes shadowPulse {
+    0%   { opacity: 0; }
+    25%  { opacity: 1; }
+    75%  { opacity: 0.7; }
+    100% { opacity: 0; }
+}
+
+.flip-right.animate {
+    animation: pageFlipRight 0.7s cubic-bezier(0.45, 0.05, 0.55, 0.95) forwards;
+}
+
+.flip-left.animate {
+    animation: pageRevealLeft 0.7s ease forwards;
+}
+
+.flip-center-shadow.animate {
+    animation: shadowPulse 0.7s ease forwards;
+}
+
+    </style>
+</head>
+<body>
+
+<!-- ══ HEADER ══ -->
+<header class="page-header">
+    <!-- ondinha decorativa no topo -->
+    <svg viewBox="0 0 800 90" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+        <rect width="800" height="90" fill="#FFE2F0"/>
+        <!-- faixinhas verticais onduladas mini -->
+        <path d="M20,0 C30,22 15,45 22,68 C26,80 18,90 18,90 L34,90 C34,90 28,80 32,68 C38,45 24,22 36,0Z" fill="#F4A7B9" opacity="0.7"/>
+        <path d="M60,0 C70,22 55,45 62,68 C66,80 58,90 58,90 L74,90 C74,90 68,80 72,68 C78,45 64,22 76,0Z" fill="#F4A7B9" opacity="0.7"/>
+        <path d="M100,0 C110,22 95,45 102,68 C106,80 98,90 98,90 L114,90 C114,90 108,80 112,68 C118,45 104,22 116,0Z" fill="#F4A7B9" opacity="0.7"/>
+        <path d="M140,0 C150,22 135,45 142,68 C146,80 138,90 138,90 L154,90 C154,90 148,80 152,68 C158,45 144,22 156,0Z" fill="#F4A7B9" opacity="0.7"/>
+        <path d="M180,0 C190,22 175,45 182,68 C186,80 178,90 178,90 L194,90 C194,90 188,80 192,68 C198,45 184,22 196,0Z" fill="#F4A7B9" opacity="0.7"/>
+        <path d="M220,0 C230,22 215,45 222,68 C226,80 218,90 218,90 L234,90 C234,90 228,80 232,68 C238,45 224,22 236,0Z" fill="#F4A7B9" opacity="0.7"/>
+        <path d="M260,0 C270,22 255,45 262,68 C266,80 258,90 258,90 L274,90 C274,90 268,80 272,68 C278,45 264,22 276,0Z" fill="#F4A7B9" opacity="0.7"/>
+        <path d="M300,0 C310,22 295,45 302,68 C306,80 298,90 298,90 L314,90 C314,90 308,80 312,68 C318,45 304,22 316,0Z" fill="#F4A7B9" opacity="0.7"/>
+        <path d="M340,0 C350,22 335,45 342,68 C346,80 338,90 338,90 L354,90 C354,90 348,80 352,68 C358,45 344,22 356,0Z" fill="#F4A7B9" opacity="0.7"/>
+        <path d="M380,0 C390,22 375,45 382,68 C386,80 378,90 378,90 L394,90 C394,90 388,80 392,68 C398,45 384,22 396,0Z" fill="#F4A7B9" opacity="0.7"/>
+        <path d="M420,0 C430,22 415,45 422,68 C426,80 418,90 418,90 L434,90 C434,90 428,80 432,68 C438,45 424,22 436,0Z" fill="#F4A7B9" opacity="0.7"/>
+        <path d="M460,0 C470,22 455,45 462,68 C466,80 458,90 458,90 L474,90 C474,90 468,80 472,68 C478,45 464,22 476,0Z" fill="#F4A7B9" opacity="0.7"/>
+        <path d="M500,0 C510,22 495,45 502,68 C506,80 498,90 498,90 L514,90 C514,90 508,80 512,68 C518,45 504,22 516,0Z" fill="#F4A7B9" opacity="0.7"/>
+        <path d="M540,0 C550,22 535,45 542,68 C546,80 538,90 538,90 L554,90 C554,90 548,80 552,68 C558,45 544,22 556,0Z" fill="#F4A7B9" opacity="0.7"/>
+        <path d="M580,0 C590,22 575,45 582,68 C586,80 578,90 578,90 L594,90 C594,90 588,80 592,68 C598,45 584,22 596,0Z" fill="#F4A7B9" opacity="0.7"/>
+        <path d="M620,0 C630,22 615,45 622,68 C626,80 618,90 618,90 L634,90 C634,90 628,80 632,68 C638,45 624,22 636,0Z" fill="#F4A7B9" opacity="0.7"/>
+        <path d="M660,0 C670,22 655,45 662,68 C666,80 658,90 658,90 L674,90 C674,90 668,80 672,68 C678,45 664,22 676,0Z" fill="#F4A7B9" opacity="0.7"/>
+        <path d="M700,0 C710,22 695,45 702,68 C706,80 698,90 698,90 L714,90 C714,90 708,80 712,68 C718,45 704,22 716,0Z" fill="#F4A7B9" opacity="0.7"/>
+        <path d="M740,0 C750,22 735,45 742,68 C746,80 738,90 738,90 L754,90 C754,90 748,80 752,68 C758,45 744,22 756,0Z" fill="#F4A7B9" opacity="0.7"/>
+        <path d="M780,0 C790,22 775,45 782,68 C786,80 778,90 778,90 L794,90 C794,90 788,80 792,68 C798,45 784,22 796,0Z" fill="#F4A7B9" opacity="0.7"/>
+    </svg>
+
+    <div class="page-header-content">
+        <a href="index.html" class="btn-voltar" id="btnVoltar">‹ Voltar ao início</a>
+        <p class="page-chapter">capítulo 4</p>
+        <h1 class="page-title">Bolsas</h1>
+        <div class="page-divider"></div>
+    </div>
+</header>
+
+<!-- ══ NAV ══ -->
+<nav>
+    <a href="deb-atelie.html" id="navInicio">Início</a>
+    <a href="jogos.html" id="navJogos">Tapetes</a>
+    <a href="casa.html" id="navCasa">Casa</a>
+    <a href="bebes.html" id="navBebes">Bebês</a>
+    <a href="bolsa.html" class="ativo">Bolsas</a>
+</nav>
+
+<!-- ══ PRODUTOS ══ -->
+<section class="produtos">
+
+    <!-- filtros por tipo -->
+    <div class="filtros">
+        <button class="filtro-btn ativo" data-filtro="todos">Todas</button>
+        <button class="filtro-btn" data-filtro="tote">Tote Bag</button>
+        <button class="filtro-btn" data-filtro="clutch">Clutch</button>
+        <button class="filtro-btn" data-filtro="mochila">Mochila</button>
+        <button class="filtro-btn" data-filtro="croche">Crochê</button>
+    </div>
+
+    <div class="cards" id="cardsContainer">
+
+        <div class="card" data-tipo="tote">
+            <div class="card-img-wrap">
+                <img src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=500&h=500&fit=crop" alt="Tote Bag Rosa" loading="lazy">
+                <span class="card-tag">Tote Bag</span>
+            </div>
+            <div class="card-body">
+                <h3>Tote Rosa Primavera</h3>
+                <p class="card-desc">Espaçosa e delicada, perfeita para o dia a dia. Alças reforçadas e bolso interno.</p>
+                <div class="card-footer">
+                    <div class="preco">R$ 89,90 <span>R$ 109,90</span></div>
+                    <a class="btn-comprar" href="https://wa.me/5599999999999?text=Olá! Tenho interesse na Tote Rosa Primavera" target="_blank">💬 Pedir</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" data-tipo="croche">
+            <div class="card-img-wrap">
+                <img src="https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=500&h=500&fit=crop" alt="Bolsa Crochê" loading="lazy">
+                <span class="card-tag">Crochê</span>
+            </div>
+            <div class="card-body">
+                <h3>Bolsa Crochê Nude</h3>
+                <p class="card-desc">Feita à mão com fio de algodão. Leve, charmosa e sustentável.</p>
+                <div class="card-footer">
+                    <div class="preco">R$ 129,90</div>
+                    <a class="btn-comprar" href="https://wa.me/5599999999999?text=Olá! Tenho interesse na Bolsa Crochê Nude" target="_blank">💬 Pedir</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" data-tipo="clutch">
+            <div class="card-img-wrap">
+                <img src="https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?w=500&h=500&fit=crop" alt="Clutch Elegante" loading="lazy">
+                <span class="card-tag">Clutch</span>
+            </div>
+            <div class="card-body">
+                <h3>Clutch Dourada</h3>
+                <p class="card-desc">Para os momentos especiais. Acabamento em detalhe dourado com forro de cetim.</p>
+                <div class="card-footer">
+                    <div class="preco">R$ 79,90 <span>R$ 95,00</span></div>
+                    <a class="btn-comprar" href="https://wa.me/5599999999999?text=Olá! Tenho interesse na Clutch Dourada" target="_blank">💬 Pedir</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" data-tipo="mochila">
+            <div class="card-img-wrap">
+                <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500&h=500&fit=crop" alt="Mochila" loading="lazy">
+                <span class="card-tag">Mochila</span>
+            </div>
+            <div class="card-body">
+                <h3>Mochila Mini Rosa</h3>
+                <p class="card-desc">Compacta e estilosa. Cabe o essencial com muito charme.</p>
+                <div class="card-footer">
+                    <div class="preco">R$ 119,90</div>
+                    <a class="btn-comprar" href="https://wa.me/5599999999999?text=Olá! Tenho interesse na Mochila Mini Rosa" target="_blank">💬 Pedir</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" data-tipo="tote">
+            <div class="card-img-wrap">
+                <img src="https://images.unsplash.com/photo-1612902456551-b8cbb1f49e3a?w=500&h=500&fit=crop" alt="Tote Bege" loading="lazy">
+                <span class="card-tag">Tote Bag</span>
+            </div>
+            <div class="card-body">
+                <h3>Tote Natural Bege</h3>
+                <p class="card-desc">Versátil e atemporal. Em lona resistente com bordado exclusivo.</p>
+                <div class="card-footer">
+                    <div class="preco">R$ 94,90 <span>R$ 115,00</span></div>
+                    <a class="btn-comprar" href="https://wa.me/5599999999999?text=Olá! Tenho interesse na Tote Natural Bege" target="_blank">💬 Pedir</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" data-tipo="croche">
+            <div class="card-img-wrap">
+                <img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=500&h=500&fit=crop" alt="Bolsa Crochê Colorida" loading="lazy">
+                <span class="card-tag">Crochê</span>
+            </div>
+            <div class="card-body">
+                <h3>Bolsa Crochê Colorida</h3>
+                <p class="card-desc">Alegre e cheia de personalidade. Ideal para passeios e encontros casuais.</p>
+                <div class="card-footer">
+                    <div class="preco">R$ 139,90</div>
+                    <a class="btn-comprar" href="https://wa.me/5599999999999?text=Olá! Tenho interesse na Bolsa Crochê Colorida" target="_blank">💬 Pedir</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- ══ NAVEGAÇÃO LIVRO ══ -->
+<div class="book-nav">
+    <a href="deb-atelie.html" class="book-nav-btn prev" id="navPrev">‹ Sumário</a>
+    <span class="book-page-indicator">pág. <strong>4</strong> / 6</span>
+    <a href="tapetes.html" class="book-nav-btn next" id="navNext">Tapetes ›</a>
+</div>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+    <p style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:#4a2a2a;">Com carinho,</p>
+    <p class="footer-text">Deb/Ateliê © 2025<br>Cada costura feita com atenção, cada detalhe pensado em você</p>
+</footer>
+
+<a class="whatsapp" href="https://wa.me/5599999999999?text=Olá! Gostaria de saber mais sobre as bolsas da Deb/Ateliê" target="_blank">💬 Fale conosco</a>
+
+    <div class="flip-page" id="flipPage"></div>
+    <div class="flip-white" id="flipWhite"></div>
+</div>
+
+<script>
+// Filtros
+document.querySelectorAll('.filtro-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+        document.querySelectorAll('.filtro-btn').forEach(function(b){ b.classList.remove('ativo'); });
+        this.classList.add('ativo');
+        var filtro = this.getAttribute('data-filtro');
+        document.querySelectorAll('.card').forEach(function(card) {
+            if (filtro === 'todos' || card.getAttribute('data-tipo') === filtro) {
+                card.style.display = 'flex';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    });
+});
+
+
+/* ═══════════════════════════════════════════════
+   EFEITO VIRAR PÁGINA — realista, estilo livro
+   Duas metades: direita vira para frente,
+   esquerda aparece por baixo (nova página)
+═══════════════════════════════════════════════ */
+(function() {
+
+    // Injeta o HTML do overlay se não existir
+    if (!document.getElementById('pageFlipOverlay')) {
+        var el = document.createElement('div');
+        el.id = 'pageFlipOverlay';
+        el.innerHTML = [
+            '<div id="flipLeft"  class="flip-half flip-left"></div>',
+            '<div id="flipRight" class="flip-half flip-right">',
+            '  <div class="flip-right-back"></div>',
+            '</div>',
+            '<div id="flipCenter" class="flip-center-shadow"></div>'
+        ].join('');
+        document.body.appendChild(el);
+    }
+
+    var pendingUrl = null;
+
+    function triggerFlip(url) {
+        pendingUrl = url;
+        var overlay = document.getElementById('pageFlipOverlay');
+        var right   = document.getElementById('flipRight');
+        var left    = document.getElementById('flipLeft');
+        var center  = document.getElementById('flipCenter');
+
+        // reset
+        overlay.style.display = 'block';
+        right.classList.remove('animate');
+        left.classList.remove('animate');
+        center.classList.remove('animate');
+        void overlay.offsetWidth; // reflow
+
+        right.classList.add('animate');
+        left.classList.add('animate');
+        center.classList.add('animate');
+
+        setTimeout(function() {
+            window.location.href = pendingUrl;
+        }, 700);
+    }
+
+    // Intercepta todos os links de navegação
+    document.addEventListener('click', function(e) {
+        var a = e.target.closest('a[href]');
+        if (!a) return;
+        var href = a.getAttribute('href');
+        if (!href || href.startsWith('#') || href.startsWith('http') || href.startsWith('mailto') || href.startsWith('tel')) return;
+        e.preventDefault();
+        triggerFlip(href);
+    });
+
+    // expõe globalmente
+    window.triggerFlip = triggerFlip;
+})();
+
+</script>
+</body>
+</html>
