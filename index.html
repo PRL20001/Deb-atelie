@@ -738,13 +738,15 @@
             .hero-deco-line { margin-bottom: 22px; }
             .hero-arc { display: none; }
 
-            /* Nav — centralizado no mobile */
+            /* Nav — scroll horizontal em mobile */
             nav {
                 padding: 10px 12px;
                 gap: 8px;
-                justify-content: center;
-                flex-wrap: wrap;
-                overflow-x: visible;
+                justify-content: flex-start;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+                flex-wrap: nowrap;
             }
             nav::-webkit-scrollbar { display: none; }
             nav a {
@@ -1102,14 +1104,8 @@ sb.addEventListener('click', function() {
 
         var p = ease(progress); // 0 → 1
 
-        /* ── Cobre a tela inteira com papel — evita ver a página por baixo ── */
-        var bgG = ctx.createLinearGradient(0, 0, W, 0);
-        bgG.addColorStop(0, '#F0E8DC');
-        bgG.addColorStop(0.5, '#F7EFE5');
-        bgG.addColorStop(1, '#FBF5EE');
-        ctx.fillStyle = bgG;
-        ctx.fillRect(0, 0, W, H);
-        drawLines(ctx, 0, 0, W, H, 0.5);
+        /* ── Fase 1: página da direita dobra para a esquerda (0 → 0.6) ── */
+        /* ── Fase 2: nova página aparece da esquerda (0.4 → 1) ── */
 
         /* Sombra geral sobre a página antiga */
         var shadowAlpha = Math.sin(p * Math.PI) * 0.45;
@@ -1284,4 +1280,3 @@ window.addEventListener('scroll', function() {
 </script>
 </body>
 </html>
-
