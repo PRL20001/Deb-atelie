@@ -68,7 +68,7 @@
         /* ══ PAGE HEADER ══ */
         .page-header {
             position: relative;
-            background: var(--ink);
+            background: #939D7A;
             overflow: hidden;
             padding: 70px 40px 60px;
             text-align: center;
@@ -102,9 +102,28 @@
             user-select: none;
         }
 
+        /* ── Imagens de enfeite nos cantos ── */
+        .corner-img {
+            position: absolute;
+            width: 160px;
+            height: 160px;
+            object-fit: contain;
+            pointer-events: none;
+            z-index: 3;
+            display: block;
+        }
+        .corner-img.tl { top: 0;    left: 0; }
+        .corner-img.tr { top: 0;    right: 0; }
+        .corner-img.bl { bottom: 0; left: 0; }
+        .corner-img.br { bottom: 0; right: 0; }
+
+        @media (max-width: 768px) {
+            .corner-img { width: 90px; height: 90px; }
+        }
+
         .header-content {
             position: relative;
-            z-index: 2;
+            z-index: 5;
             animation: fadeUp 0.9s ease both;
         }
 
@@ -113,7 +132,7 @@
             align-items: center;
             gap: 8px;
             text-decoration: none;
-            color: rgba(255,255,255,0.6);
+            color: rgba(255,255,255,0.7);
             font-size: 0.72rem;
             letter-spacing: 0.2em;
             text-transform: uppercase;
@@ -147,11 +166,11 @@
             font-size: 0.65rem;
             letter-spacing: 0.3em;
             text-transform: uppercase;
-            color: rgba(255,255,255,0.35);
+            color: rgba(255,255,255,0.55);
             margin-bottom: 14px;
             font-weight: 500;
         }
-        .eyebrow-dash { width: 24px; height: 1px; background: rgba(255,255,255,0.25); }
+        .eyebrow-dash { width: 24px; height: 1px; background: rgba(255,255,255,0.4); }
 
         .page-title {
             font-family: 'Playfair Display', serif;
@@ -170,7 +189,7 @@
             font-family: 'IM Fell English', serif;
             font-style: italic;
             font-size: 1rem;
-            color: rgba(255,255,255,0.35);
+            color: rgba(255,255,255,0.6);
             margin-top: 10px;
         }
 
@@ -627,6 +646,23 @@
 <!-- ══ HEADER ══ -->
 <header class="page-header">
     <div class="header-bg-num">4</div>
+
+    <!-- ╔══════════════════════════════════════╗ -->
+    <!-- ║  IMAGENS DE ENFEITE — um em cada canto  ║ -->
+    <!-- ╚══════════════════════════════════════╝ -->
+
+    <!-- 🔴 CANTO SUPERIOR ESQUERDO → coloque: uva.png -->
+    <img src="uva.png" alt="" class="corner-img tl" onerror="this.style.background='rgba(255,0,0,0.3)';this.style.border='2px dashed red'">
+
+    <!-- 🔵 CANTO SUPERIOR DIREITO → coloque: mato.png -->
+    <img src="mato.png" alt="" class="corner-img tr" onerror="this.style.background='rgba(0,0,255,0.3)';this.style.border='2px dashed blue'">
+
+    <!-- 🟢 CANTO INFERIOR ESQUERDO → coloque: bolsa.png -->
+    <img src="bolsa.png" alt="" class="corner-img bl" onerror="this.style.background='rgba(0,255,0,0.3)';this.style.border='2px dashed green'">
+
+    <!-- 🟡 CANTO INFERIOR DIREITO → coloque: coco.png -->
+    <img src="coco.png" alt="" class="corner-img br" onerror="this.style.background='rgba(255,200,0,0.3)';this.style.border='2px dashed orange'">
+
     <div class="header-content">
         <a href="index.html" class="btn-voltar">
             <span class="btn-voltar-arrow"></span>
