@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Tapetes — Deb/Ateliê</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Jost:wght@300;400;500;600&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --cream: #FBF5EE;
+            --green-dark: #14341f;
+            --green-mid: #1e4d2e;
+            --pink-band: #E8A0B0;
+            --pink-deep: #C97B8A;
+            --rose: #C97B8A;
+            --gold: #C4964A;
+            --ink: #2C1F1A;
+            --brown-light: #A67C72;
+            --paper: #F7EFE5;
+            --sage: #8A9B7A;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Jost', sans-serif;
+            background: var(--cream);
+            color: var(--ink);
+            overflow-x: hidden;
+            cursor: none;
+        }
+
+        /* ══ CURSOR ══ */
+        .cursor {
+            position: fixed;
+            width: 12px; height: 12px;
+            background: var(--pink-deep);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 99999;
+            transform: translate(-50%, -50%);
+            transition: width 0.3s ease, height 0.3s ease;
+            mix-blend-mode: multiply;
+        }
+        .cursor-ring {
+            position: fixed;
+            width: 36px; height: 36px;
+            border: 1.5px solid var(--pink-deep);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 99998;
+            transform: translate(-50%, -50%);
+            transition: transform 0.15s ease, opacity 0.3s ease;
+            opacity: 0.4;
+        }
+
+        /* ══ GRAIN ══ */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 9998;
+            opacity: 0.35;
+        }
+
+        /* ══ PAGE HEADER ══ */
+        .page-header {
+            position: relative;
+            overflow: hidden;
+            background: var(--green-dark);
+            min-height: 420px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 40px;
+        }
+
+        /* Textura sutil de linhas verticais sobre o verde */
+        .page-header::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(
+                90deg,
+                transparent 0px,
+                transparent 38px,
+                rgba(255,255,255,0.03) 38px,
+                rgba(255,255,255,0.03) 39px
+            );
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* ── FAIXA ROSA CENTRAL ── */
+        .header-band {
+            position: relative;
+            width: 100%;
+            z-index: 4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* A faixa rosa em si — imagem ou cor sólida de fallback */
+        .band-bg {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            z-index: 0;
+            display: block;
+        }
+
+        /* Faixa — dimensões e posicionamento */
+        .band-inner {
+            position: relative;
+            width: 100%;
+            padding: 28px 280px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 140px;
+            background: transparent;
+        }
+
+        /* Imagem da faixa rosa — cobre toda a área */
+        .band-inner::before,
+        .band-inner::after { display: none; }
+
+        /* Imagem lado esquerdo da faixa */
+        .band-img-left {
+            position: absolute;
+            left: -30px;
+            top: 50%;
+            transform: translateY(-50%);
+            height: 360px;
+            width: auto;
+            max-width: 420px;
+            object-fit: contain;
+            z-index: 3;
+            pointer-events: none;
+        }
+
+        /* Imagem lado direito da faixa */
+        .band-img-right {
+            position: absolute;
+            right: 0;
+            top: auto;
+            bottom: -95px;
+            transform: none;
+            height: 220px;
+            width: auto;
+            max-width: 260px;
+            object-fit: contain;
+            z-index: 3;
+            pointer-events: none;
+        }
+
+        /* Welcome — título grande acima de Tapetes */
+        .welcome-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(5rem, 14vw, 10rem);
+            font-weight: 700;
+            font-style: italic;
+            color: var(--ink);
+            line-height: 1;
+            margin-bottom: 0;
+            opacity: 0.88;
+        }
+
+        /* Conteúdo textual sobre a faixa */
+        .band-content {
+            position: relative;
+            z-index: 5;
+            text-align: center;
+            animation: fadeUp 0.9s ease both;
+        }
+
+        .btn-voltar {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: rgba(44,31,26,0.55);
+            font-size: 0.72rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-bottom: 14px;
+            transition: all 0.3s;
+            padding: 6px 0;
+        }
+        .btn-voltar:hover { color: var(--ink); gap: 12px; }
+        .btn-voltar-arrow {
+            width: 28px; height: 1px;
+            background: currentColor;
+            position: relative;
+            transition: width 0.3s;
+        }
+        .btn-voltar-arrow::before {
+            content: '';
+            position: absolute;
+            left: 0; top: -3px;
+            width: 7px; height: 7px;
+            border-left: 1px solid currentColor;
+            border-bottom: 1px solid currentColor;
+            transform: rotate(45deg);
+        }
+        .btn-voltar:hover .btn-voltar-arrow { width: 36px; }
+
+        .header-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.65rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: rgba(44,31,26,0.5);
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        .eyebrow-dash { width: 24px; height: 1px; background: rgba(44,31,26,0.3); }
+
+        .page-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            font-weight: 700;
+            color: var(--ink);
+            line-height: 1;
+            letter-spacing: -0.01em;
+            text-shadow: 0 2px 16px rgba(255,255,255,0.3);
+        }
+        .page-title em {
+            font-style: italic;
+            font-weight: 400;
+            color: white;
+            text-shadow: 0 2px 12px rgba(44,31,26,0.2);
+        }
+
+        .header-sub {
+            font-family: 'IM Fell English', serif;
+            font-style: italic;
+            font-size: 0.95rem;
+            color: rgba(44,31,26,0.55);
+            margin-top: 8px;
+        }
+
+        .header-rule {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 16px;
+        }
+        .rule-line { width: 50px; height: 1px; background: rgba(44,31,26,0.2); }
+        .rule-diamond {
+            width: 6px; height: 6px;
+            background: var(--gold);
+            transform: rotate(45deg);
+            opacity: 0.8;
+        }
+
+        /* Decoração acima e abaixo da faixa — espaço verde */
+        .header-top-space {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding-bottom: 20px;
+        }
+        .header-top-label {
+            font-size: 0.6rem;
+            letter-spacing: 0.35em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.25);
+            font-weight: 500;
+        }
+        .header-top-dots {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 10px;
+        }
+        .top-dot {
+            width: 4px; height: 4px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.15);
+        }
+        .top-dot.gold { background: var(--gold); opacity: 0.5; width: 6px; height: 6px; }
+
+        /* ══ NAV ══ */
+        nav {
+            width: 100%;
+            background: var(--paper);
+            border-bottom: 1px solid rgba(20,52,31,0.1);
+            padding: 12px 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+        }
+        nav a {
+            text-decoration: none;
+            color: var(--brown-light);
+            font-weight: 500;
+            font-size: 0.75rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            padding: 9px 20px;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            border: 1.5px solid transparent;
+        }
+        nav a:hover {
+            color: var(--ink);
+            border-color: rgba(20,52,31,0.2);
+            background: white;
+        }
+        nav a.ativo {
+            background: var(--green-dark);
+            color: white;
+            border-color: var(--green-dark);
+        }
+
+        /* ══ PRODUTOS ══ */
+        .produtos {
+            padding: 70px 40px 80px;
+            max-width: 1140px;
+            margin: 0 auto;
+        }
+
+        .filtros {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 56px;
+        }
+        .filtro-btn {
+            padding: 8px 20px;
+            border-radius: 30px;
+            border: 1.5px solid rgba(20,52,31,0.15);
+            background: transparent;
+            color: var(--brown-light);
+            font-family: 'Jost', sans-serif;
+            font-size: 0.78rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.25s;
+            font-weight: 500;
+        }
+        .filtro-btn:hover {
+            border-color: var(--green-dark);
+            color: var(--green-dark);
+            background: rgba(20,52,31,0.05);
+        }
+        .filtro-btn.ativo {
+            background: var(--green-dark);
+            color: white;
+            border-color: var(--green-dark);
+            box-shadow: 0 4px 14px rgba(20,52,31,0.25);
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+        @media (max-width: 900px) {
+            .cards { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        .card {
+            background: white;
+            border-radius: 4px;
+            overflow: hidden;
+            box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+            transition: all 0.35s ease;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+        .card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            transition: border-color 0.35s;
+            pointer-events: none;
+        }
+        .card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.10); }
+        .card:hover::after { border-color: rgba(20,52,31,0.2); }
+
+        .card-img-wrap {
+            position: relative;
+            overflow: hidden;
+            height: 280px;
+        }
+        .card-img-wrap img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+            display: block;
+        }
+        .card:hover .card-img-wrap img { transform: scale(1.07); }
+        .card-img-wrap::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(20,52,31,0.35), transparent 50%);
+            opacity: 0;
+            transition: opacity 0.35s;
+        }
+        .card:hover .card-img-wrap::after { opacity: 1; }
+
+        .card-tag {
+            position: absolute;
+            top: 16px; left: 16px;
+            background: var(--green-dark);
+            color: rgba(255,255,255,0.9);
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            padding: 5px 12px;
+            z-index: 2;
+        }
+
+        .card-body {
+            padding: 24px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            border-top: 1px solid rgba(20,52,31,0.07);
+        }
+        .card-body h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.15rem;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: var(--ink);
+            line-height: 1.3;
+        }
+        .card-desc {
+            font-size: 0.85rem;
+            color: var(--brown-light);
+            line-height: 1.7;
+            margin-bottom: 20px;
+            flex: 1;
+            font-weight: 300;
+        }
+        .card-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-top: auto;
+            padding-top: 16px;
+            border-top: 1px solid rgba(20,52,31,0.07);
+        }
+        .preco { display: flex; flex-direction: column; gap: 2px; }
+        .preco-atual {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: var(--ink);
+        }
+        .preco-antigo {
+            font-size: 0.78rem;
+            color: var(--brown-light);
+            text-decoration: line-through;
+            font-weight: 300;
+            opacity: 0.6;
+        }
+        .btn-comprar {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 10px 20px;
+            background: var(--green-dark);
+            color: white;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.78rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            transition: all 0.25s;
+            white-space: nowrap;
+            border: none;
+            cursor: pointer;
+            font-family: 'Jost', sans-serif;
+            box-shadow: 0 4px 12px rgba(20,52,31,0.25);
+        }
+        .btn-comprar:hover {
+            background: var(--green-mid);
+            box-shadow: 0 6px 18px rgba(20,52,31,0.35);
+            transform: translateY(-1px);
+        }
+
+        /* ══ BOOK NAV ══ */
+        .book-nav {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 28px;
+            padding: 60px 40px 40px;
+            border-top: 1px solid rgba(20,52,31,0.1);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .book-nav-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: var(--ink);
+            font-size: 0.75rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            font-weight: 600;
+            padding: 12px 24px;
+            border: 1.5px solid rgba(44,31,26,0.15);
+            border-radius: 30px;
+            transition: all 0.3s;
+            background: white;
+        }
+        .book-nav-btn:hover {
+            background: var(--green-dark);
+            color: white;
+            border-color: var(--green-dark);
+            box-shadow: 0 6px 20px rgba(20,52,31,0.2);
+        }
+        .book-nav-btn.prev:hover { transform: translateX(-3px); }
+        .book-nav-btn.next:hover { transform: translateX(3px); }
+
+        .book-page-indicator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'IM Fell English', serif;
+            font-style: italic;
+            font-size: 0.9rem;
+            color: var(--brown-light);
+        }
+        .page-num {
+            font-family: 'Playfair Display', serif;
+            font-style: normal;
+            font-size: 1.4rem;
+            color: var(--green-dark);
+            font-weight: 500;
+        }
+        .page-sep { color: rgba(107,76,66,0.25); }
+
+        /* ══ FOOTER ══ */
+        footer {
+            background: var(--ink);
+            padding: 50px 40px 36px;
+            text-align: center;
+            position: relative;
+        }
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 20%; right: 20%;
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--sage), transparent);
+        }
+        .footer-ornament {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 22px;
+            opacity: 0.3;
+        }
+        .orn-line { width: 50px; height: 1px; background: var(--sage); }
+        .orn-diamond { width: 6px; height: 6px; background: var(--gold); transform: rotate(45deg); }
+        .footer-sig {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.5rem;
+            color: var(--sage);
+            margin-bottom: 12px;
+        }
+        .footer-sub {
+            font-size: 0.78rem;
+            letter-spacing: 0.08em;
+            color: rgba(255,255,255,0.2);
+            line-height: 2;
+            font-weight: 300;
+        }
+
+        /* ══ WHATSAPP ══ */
+        .whatsapp {
+            position: fixed;
+            bottom: 26px; right: 26px;
+            background: #25D366;
+            color: white;
+            border-radius: 50px;
+            padding: 14px 22px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.85rem;
+            box-shadow: 0 6px 24px rgba(37,211,102,0.4);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+            z-index: 1000;
+        }
+        .whatsapp:hover { transform: scale(1.05); }
+
+        .scroll-top {
+            position: fixed;
+            bottom: 82px; right: 28px;
+            width: 44px; height: 44px;
+            border-radius: 50%;
+            background: var(--ink);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.15);
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+            transition: all 0.3s;
+            z-index: 999;
+        }
+        .scroll-top:hover { background: var(--green-dark); border-color: var(--green-dark); }
+
+        #pageFlipCanvas {
+            display: none;
+            position: fixed;
+            inset: 0;
+            width: 100%; height: 100%;
+            z-index: 99999;
+            pointer-events: none;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ══ RESPONSIVE ══ */
+        @media (max-width: 768px) {
+            body { cursor: auto; }
+            .cursor, .cursor-ring { display: none; }
+
+            .page-header { padding: 40px 20px; min-height: 300px; }
+            .band-inner { padding: 22px 130px; min-height: 110px; }
+            .band-img-left, .band-img-right { height: 120px; max-width: 130px; }
+            .page-title { font-size: 2.6rem; }
+
+            nav { padding: 10px 12px; justify-content: center; flex-wrap: wrap; gap: 6px; }
+            nav a { padding: 8px 16px; font-size: 0.7rem; white-space: nowrap; }
+
+            .produtos { padding: 50px 16px 60px; }
+            .cards { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+            .card-img-wrap { height: 200px; }
+            .card-body { padding: 14px; }
+            .card-body h3 { font-size: 0.95rem; }
+            .card-desc { font-size: 0.78rem; }
+            .preco-atual { font-size: 1rem; }
+            .btn-comprar { padding: 8px 12px; font-size: 0.7rem; }
+
+            .book-nav { padding: 40px 20px 30px; gap: 16px; flex-wrap: wrap; }
+            .book-nav-btn { padding: 10px 18px; font-size: 0.7rem; }
+            .whatsapp { bottom: 16px; right: 16px; padding: 12px 16px; font-size: 0.8rem; }
+            .scroll-top { bottom: 70px; right: 16px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- ══ HEADER ══ -->
+<header class="page-header">
+
+    <!-- Espaço verde acima da faixa -->
+    <div class="header-top-space">
+        <p class="header-top-label">Deb / Ateliê</p>
+        <div class="header-top-dots">
+            <span class="top-dot"></span>
+            <span class="top-dot gold"></span>
+            <span class="top-dot"></span>
+        </div>
+        <a href="index.html" class="btn-voltar" style="color:rgba(255,255,255,0.4); margin-top:14px; display:inline-flex;">
+            <span class="btn-voltar-arrow"></span>
+            Voltar ao início
+        </a>
+    </div>
+
+    <!-- ── FAIXA ROSA ── -->
+    <div class="header-band">
+        <div class="band-inner">
+
+            <!-- 🖼️ IMAGEM DA FAIXA ROSA → coloque: faixa-rosa.png -->
+            <img src="faixa_rosa.png" alt="" class="band-bg">
+
+            <!-- 🖼️ Imagem lado ESQUERDO da faixa → coloque: tapete-esq.png -->
+            <img src="costura.png" alt="" class="band-img-left">
+
+            <!-- 🖼️ Imagem lado DIREITO da faixa → coloque: tapete-dir.png -->
+            <img src="exclamacao.png" alt="" class="band-img-right">
+
+            <!-- Texto sobre a faixa -->
+            <div class="band-content">
+                <p class="welcome-title">Welcome</p>
+                <h1 class="page-title"><em>Ta</em>petes</h1>
+                <p class="header-sub">tecidos à mão, fio por fio</p>
+                <div class="header-rule">
+                    <span class="rule-line"></span>
+                    <span class="rule-diamond"></span>
+                    <span class="rule-line"></span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</header>
+
+<!-- ══ NAV ══ -->
+<nav>
+    <a href="index.html">Início</a>
+    <a href="tapetes.html" class="ativo">Tapetes</a>
+    <a href="casa.html">Casa</a>
+    <a href="bebes.html">Bebês</a>
+    <a href="bolsa.html">Bolsas</a>
+</nav>
+
+<!-- ══ PRODUTOS ══ -->
+<section class="produtos">
+
+    <div class="filtros">
+        <button class="filtro-btn ativo" data-filtro="todos">Todos</button>
+        <button class="filtro-btn" data-filtro="sala">Sala</button>
+        <button class="filtro-btn" data-filtro="quarto">Quarto</button>
+        <button class="filtro-btn" data-filtro="banheiro">Banheiro</button>
+        <button class="filtro-btn" data-filtro="croche">Crochê</button>
+    </div>
+
+    <div class="cards" id="cardsContainer">
+
+        <div class="card" data-tipo="sala">
+            <div class="card-img-wrap">
+                <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600&h=600&fit=crop" alt="Tapete sala" loading="lazy">
+                <span class="card-tag">Sala</span>
+            </div>
+            <div class="card-body">
+                <h3>Tapete Redondo Natural</h3>
+                <p class="card-desc">Feito à mão em algodão cru. Textura rústica e sofisticada para salas e varanda.</p>
+                <div class="card-footer">
+                    <div class="preco">
+                        <span class="preco-atual">R$ 189,90</span>
+                        <span class="preco-antigo">R$ 220,00</span>
+                    </div>
+                    <a class="btn-comprar" href="https://wa.me/5599999999999?text=Olá! Tenho interesse no Tapete Redondo Natural" target="_blank">💬 Pedir</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" data-tipo="croche">
+            <div class="card-img-wrap">
+                <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&h=600&fit=crop" alt="Tapete crochê" loading="lazy">
+                <span class="card-tag">Crochê</span>
+            </div>
+            <div class="card-body">
+                <h3>Tapete Crochê Rosa</h3>
+                <p class="card-desc">Ponto rendado artesanal em tons de rosa e off-white. Delicado e resistente.</p>
+                <div class="card-footer">
+                    <div class="preco">
+                        <span class="preco-atual">R$ 159,90</span>
+                    </div>
+                    <a class="btn-comprar" href="https://wa.me/5599999999999?text=Olá! Tenho interesse no Tapete Crochê Rosa" target="_blank">💬 Pedir</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" data-tipo="quarto">
+            <div class="card-img-wrap">
+                <img src="https://images.unsplash.com/photo-1540518614846-7eded433c457?w=600&h=600&fit=crop" alt="Tapete quarto" loading="lazy">
+                <span class="card-tag">Quarto</span>
+            </div>
+            <div class="card-body">
+                <h3>Tapete Pelúcia Macio</h3>
+                <p class="card-desc">Felpudo e quentinho para o quarto. Perfeito para sair da cama com conforto.</p>
+                <div class="card-footer">
+                    <div class="preco">
+                        <span class="preco-atual">R$ 139,90</span>
+                        <span class="preco-antigo">R$ 169,90</span>
+                    </div>
+                    <a class="btn-comprar" href="https://wa.me/5599999999999?text=Olá! Tenho interesse no Tapete Pelúcia Macio" target="_blank">💬 Pedir</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" data-tipo="banheiro">
+            <div class="card-img-wrap">
+                <img src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=600&h=600&fit=crop" alt="Tapete banheiro" loading="lazy">
+                <span class="card-tag">Banheiro</span>
+            </div>
+            <div class="card-body">
+                <h3>Tapete Algodão Listrado</h3>
+                <p class="card-desc">Listras coloridas em algodão absorvente. Antiderrapante e fácil de lavar.</p>
+                <div class="card-footer">
+                    <div class="preco">
+                        <span class="preco-atual">R$ 89,90</span>
+                    </div>
+                    <a class="btn-comprar" href="https://wa.me/5599999999999?text=Olá! Tenho interesse no Tapete Algodão Listrado" target="_blank">💬 Pedir</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" data-tipo="croche">
+            <div class="card-img-wrap">
+                <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&h=600&fit=crop" alt="Tapete crochê oval" loading="lazy">
+                <span class="card-tag">Crochê</span>
+            </div>
+            <div class="card-body">
+                <h3>Tapete Crochê Oval Verde</h3>
+                <p class="card-desc">Formato oval em tons de verde e cru. Artesanal, sustentável e cheio de charme.</p>
+                <div class="card-footer">
+                    <div class="preco">
+                        <span class="preco-atual">R$ 174,90</span>
+                        <span class="preco-antigo">R$ 199,90</span>
+                    </div>
+                    <a class="btn-comprar" href="https://wa.me/5599999999999?text=Olá! Tenho interesse no Tapete Crochê Oval Verde" target="_blank">💬 Pedir</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" data-tipo="sala">
+            <div class="card-img-wrap">
+                <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&h=600&fit=crop" alt="Tapete sala grande" loading="lazy">
+                <span class="card-tag">Sala</span>
+            </div>
+            <div class="card-body">
+                <h3>Tapete Geométrico Bege</h3>
+                <p class="card-desc">Padrão geométrico moderno em bege e marrom. Ideal para salas de estar amplas.</p>
+                <div class="card-footer">
+                    <div class="preco">
+                        <span class="preco-atual">R$ 229,90</span>
+                    </div>
+                    <a class="btn-comprar" href="https://wa.me/5599999999999?text=Olá! Tenho interesse no Tapete Geométrico Bege" target="_blank">💬 Pedir</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- ══ NAVEGAÇÃO LIVRO ══ -->
+<div class="book-nav">
+    <a href="index.html" class="book-nav-btn prev">‹ Sumário</a>
+    <div class="book-page-indicator">
+        pág. <span class="page-num">2</span>
+        <span class="page-sep">/</span>
+        6
+    </div>
+    <a href="casa.html" class="book-nav-btn next">Casa ›</a>
+</div>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+    <div class="footer-ornament">
+        <span class="orn-line"></span>
+        <span class="orn-diamond"></span>
+        <span class="orn-line"></span>
+    </div>
+    <p class="footer-sig">Com carinho,</p>
+    <p class="footer-sub">Deb/Ateliê © 2025<br>Cada costura feita com atenção, cada detalhe pensado em você</p>
+</footer>
+
+<a class="whatsapp" href="https://wa.me/5599999999999?text=Olá! Gostaria de saber mais sobre os tapetes da Deb/Ateliê" target="_blank">
+    💬 Fale conosco
+</a>
+
+<button class="scroll-top" id="scrollTop" aria-label="Voltar ao topo">↑</button>
+<canvas id="pageFlipCanvas"></canvas>
+
+<script>
+/* ══ CURSOR ══ */
+var isTouchDevice = ('ontouchstart' in window) || navigator.maxTouchPoints > 0;
+var cur = document.getElementById('cursor');
+var ring = document.getElementById('cursorRing');
+if (isTouchDevice) {
+    cur.style.display = 'none'; ring.style.display = 'none';
+    document.body.style.cursor = 'auto';
+} else {
+    document.addEventListener('mousemove', function(e) {
+        cur.style.left = e.clientX + 'px'; cur.style.top = e.clientY + 'px';
+        ring.style.left = e.clientX + 'px'; ring.style.top = e.clientY + 'px';
+    });
+    document.querySelectorAll('a, button').forEach(function(el) {
+        el.addEventListener('mouseenter', function() { cur.style.width='20px'; cur.style.height='20px'; ring.style.opacity='0.8'; });
+        el.addEventListener('mouseleave', function() { cur.style.width='12px'; cur.style.height='12px'; ring.style.opacity='0.4'; });
+    });
+}
+
+/* ══ FILTROS ══ */
+document.querySelectorAll('.filtro-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+        document.querySelectorAll('.filtro-btn').forEach(function(b){ b.classList.remove('ativo'); });
+        this.classList.add('ativo');
+        var filtro = this.getAttribute('data-filtro');
+        document.querySelectorAll('.card').forEach(function(card) {
+            card.style.display = (filtro === 'todos' || card.getAttribute('data-tipo') === filtro) ? 'flex' : 'none';
+        });
+    });
+});
+
+/* ══ SCROLL TOP ══ */
+var sb = document.getElementById('scrollTop');
+window.addEventListener('scroll', function() { sb.style.display = window.scrollY > 300 ? 'flex' : 'none'; });
+sb.addEventListener('click', function() { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+
+/* ══ VIRAR PÁGINA ══ */
+(function() {
+    var canvas = document.getElementById('pageFlipCanvas');
+    var ctx = canvas.getContext('2d');
+    var targetUrl = null, animStart = null, DURATION = 900, raf = null;
+
+    function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+    window.addEventListener('resize', resize); resize();
+
+    function ease(t) { return t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t+2,3)/2; }
+
+    function drawFlip(progress) {
+        var W = canvas.width, H = canvas.height;
+        ctx.clearRect(0, 0, W, H);
+        var p = ease(progress);
+        ctx.fillStyle = 'rgba(0,0,0,' + (Math.sin(p * Math.PI) * 0.45) + ')';
+        ctx.fillRect(0, 0, W, H);
+        var newReveal = Math.max(0, (p - 0.35) / 0.65);
+        if (newReveal > 0) {
+            var nw = W * newReveal;
+            ctx.save(); ctx.beginPath(); ctx.rect(0, 0, nw, H); ctx.clip();
+            var ng = ctx.createLinearGradient(0, 0, nw, 0);
+            ng.addColorStop(0, '#14341f'); ng.addColorStop(0.5, '#1e4d2e'); ng.addColorStop(1, '#F7EFE5');
+            ctx.fillStyle = ng; ctx.fillRect(0, 0, nw, H); ctx.restore();
+        }
+        var foldProgress = Math.min(1, p / 0.75);
+        var pageW = (W / 2) * (1 - foldProgress);
+        if (pageW > 1) {
+            var topX = W / 2 - pageW, bottomX = W / 2 - pageW * (1 - foldProgress * 0.35);
+            ctx.save(); ctx.beginPath();
+            ctx.moveTo(W/2,0); ctx.lineTo(W/2,H); ctx.lineTo(bottomX,H); ctx.lineTo(topX,0);
+            ctx.closePath(); ctx.clip();
+            var pg = ctx.createLinearGradient(topX, 0, W/2, 0);
+            pg.addColorStop(0,'#0f2818'); pg.addColorStop(0.5,'#14341f'); pg.addColorStop(1,'#1e4d2e');
+            ctx.fillStyle = pg;
+            ctx.beginPath(); ctx.moveTo(W/2,0); ctx.lineTo(W/2,H); ctx.lineTo(bottomX,H); ctx.lineTo(topX,0);
+            ctx.closePath(); ctx.fill(); ctx.restore();
+        }
+        var sa = Math.sin(p * Math.PI) * 0.5;
+        var sg = ctx.createLinearGradient(W/2-28,0,W/2+28,0);
+        sg.addColorStop(0,'rgba(0,0,0,0)'); sg.addColorStop(0.4,'rgba(0,0,0,'+sa+')');
+        sg.addColorStop(0.6,'rgba(0,0,0,'+sa+')'); sg.addColorStop(1,'rgba(0,0,0,0)');
+        ctx.fillStyle = sg; ctx.fillRect(W/2-28,0,56,H);
+    }
+
+    function animate(ts) {
+        if (!animStart) animStart = ts;
+        var progress = Math.min((ts - animStart) / DURATION, 1);
+        drawFlip(progress);
+        if (progress < 1) { raf = requestAnimationFrame(animate); }
+        else { ctx.clearRect(0,0,canvas.width,canvas.height); canvas.style.display='none'; if (targetUrl) window.location.href = targetUrl; }
+    }
+
+    window.triggerFlip = function(url) {
+        targetUrl = url; animStart = null; canvas.style.display = 'block';
+        if (raf) cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(animate);
+    };
+
+    document.addEventListener('click', function(e) {
+        var a = e.target.closest('a[href]');
+        if (!a) return;
+        var href = a.getAttribute('href');
+        if (!href || href.startsWith('#') || href.startsWith('http') || href.startsWith('mailto') || href.startsWith('tel')) return;
+        e.preventDefault();
+        window.triggerFlip(href);
+    });
+})();
+</script>
+</body>
+</html>
