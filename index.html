@@ -84,7 +84,6 @@
             overflow: hidden;
         }
 
-        /* Faixas verticais decorativas */
         .stripe {
             position: absolute;
             top: 0; bottom: 0;
@@ -93,7 +92,6 @@
             opacity: 0.6;
         }
 
-        /* Grande círculo de fundo */
         .hero-circle-bg {
             position: absolute;
             width: 520px; height: 520px;
@@ -104,7 +102,6 @@
             opacity: 0.35;
         }
 
-        /* Arcos decorativos */
         .hero-arc {
             position: absolute;
             border-radius: 50%;
@@ -123,7 +120,6 @@
             animation: fadeUp 1.2s ease both;
         }
 
-        /* Linha superior decorativa */
         .hero-deco-line {
             display: flex;
             align-items: center;
@@ -162,7 +158,6 @@
             opacity: 0.3;
             animation: spinSlow 20s linear infinite;
         }
-        /* Losangos nos 4 pontos cardeais do anel */
         .ring-diamond {
             position: absolute;
             width: 7px; height: 7px;
@@ -282,7 +277,6 @@
             padding: 90px 60px;
         }
 
-        /* Textura de fundo */
         .prefacio::before {
             content: '';
             position: absolute;
@@ -292,7 +286,6 @@
                 repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(255,255,255,0.04) 39px, rgba(255,255,255,0.04) 40px);
         }
 
-        /* Grandes letras decorativas de fundo */
         .prefacio-bg-text {
             position: absolute;
             bottom: -30px; right: -20px;
@@ -316,15 +309,11 @@
             z-index: 1;
         }
 
-        /* Card imagem */
-        .pref-img-wrap {
-            position: relative;
-        }
+        .pref-img-wrap { position: relative; }
         .pref-img-outer {
             position: relative;
             padding: 16px;
         }
-        /* Borda decorativa */
         .pref-img-outer::before {
             content: '';
             position: absolute;
@@ -345,16 +334,8 @@
             position: relative;
             z-index: 1;
         }
-        /* Ornamento canto superior esquerdo */
-        .pref-corner {
-            position: absolute;
-            width: 20px; height: 20px;
-        }
-        .pref-corner::before, .pref-corner::after {
-            content: '';
-            position: absolute;
-            background: var(--gold);
-        }
+        .pref-corner { position: absolute; width: 20px; height: 20px; }
+        .pref-corner::before, .pref-corner::after { content: ''; position: absolute; background: var(--gold); }
         .pref-corner-tl { top: -1px; left: -1px; }
         .pref-corner-tl::before { width: 20px; height: 2px; top: 0; left: 0; }
         .pref-corner-tl::after  { width: 2px; height: 20px; top: 0; left: 0; }
@@ -368,10 +349,7 @@
         .pref-corner-br::before { width: 20px; height: 2px; bottom: 0; right: 0; }
         .pref-corner-br::after  { width: 2px; height: 20px; bottom: 0; right: 0; }
 
-        /* Card texto */
-        .pref-txt {
-            color: white;
-        }
+        .pref-txt { color: white; }
         .pref-label {
             display: inline-flex;
             align-items: center;
@@ -393,10 +371,7 @@
             line-height: 1.15;
             margin-bottom: 28px;
         }
-        .pref-txt h2 em {
-            font-style: italic;
-            color: var(--blush);
-        }
+        .pref-txt h2 em { font-style: italic; color: var(--blush); }
 
         .pref-txt p {
             font-size: 1.25rem;
@@ -426,7 +401,6 @@
             overflow: hidden;
         }
 
-        /* Marca d'água */
         .sumario::before {
             content: 'Sumário';
             position: absolute;
@@ -468,10 +442,7 @@
             line-height: 1.1;
             margin-bottom: 8px;
         }
-        .sumario h2 em {
-            font-style: italic;
-            color: var(--rose);
-        }
+        .sumario h2 em { font-style: italic; color: var(--rose); }
 
         .sumario-sub {
             font-family: 'IM Fell English', serif;
@@ -480,7 +451,6 @@
             color: var(--brown-light);
         }
 
-        /* Lista do sumário */
         .sumario-list {
             max-width: 700px;
             margin: 0 auto;
@@ -533,7 +503,6 @@
         }
         .sumario-item:hover .sumario-titulo { color: var(--rose); }
 
-        /* Linha pontilhada */
         .sumario-dots {
             flex: 1;
             height: 1px;
@@ -546,7 +515,6 @@
             align-self: center;
         }
 
-        /* Botão de acesso */
         .sumario-btn {
             display: inline-flex;
             align-items: center;
@@ -569,7 +537,6 @@
             box-shadow: 0 6px 18px rgba(201,123,138,0.35);
         }
 
-        /* Paginação */
         .sumario-pagina {
             margin-top: 52px;
             display: flex;
@@ -645,11 +612,7 @@
             opacity: 0.3;
         }
         .orn-line { width: 50px; height: 1px; background: var(--blush); }
-        .orn-diamond {
-            width: 6px; height: 6px;
-            background: var(--gold);
-            transform: rotate(45deg);
-        }
+        .orn-diamond { width: 6px; height: 6px; background: var(--gold); transform: rotate(45deg); }
 
         /* ══ WHATSAPP ══ */
         .whatsapp {
@@ -672,7 +635,6 @@
         }
         .whatsapp:hover { transform: scale(1.05); box-shadow: 0 8px 28px rgba(37,211,102,0.5); }
 
-        /* ══ SCROLL TOP ══ */
         .scroll-top {
             position: fixed;
             bottom: 82px; right: 28px;
@@ -692,7 +654,6 @@
         }
         .scroll-top:hover { background: var(--rose); border-color: var(--rose); }
 
-        /* ══ PAGE FLIP — Canvas ══ */
         #pageFlipCanvas {
             display: none;
             position: fixed;
@@ -703,7 +664,6 @@
             pointer-events: none;
         }
 
-        /* ══ ANIMAÇÕES ══ */
         @keyframes fadeUp {
             from { opacity: 0; transform: translateY(24px); }
             to   { opacity: 1; transform: translateY(0); }
@@ -719,11 +679,8 @@
 
         /* ══ RESPONSIVE ══ */
         @media (max-width: 768px) {
-            /* Cursor — desativado no touch */
             body { cursor: auto; }
             .cursor, .cursor-ring { display: none; }
-
-            /* Hero */
             .hero { min-height: 92vh; padding: 0 16px; }
             .logo-img { width: 130px; height: 130px; }
             .logo-frame { width: 130px; height: 130px; }
@@ -737,62 +694,35 @@
             .brand-sub { font-size: 0.9rem; }
             .hero-deco-line { margin-bottom: 22px; }
             .hero-arc { display: none; }
-
-            /* Nav — centralizado no mobile */
             nav {
                 padding: 10px 12px;
                 gap: 8px;
-                justify-content: center;
-                flex-wrap: wrap;
-                overflow-x: visible;
+                justify-content: flex-start;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+                flex-wrap: nowrap;
             }
             nav::-webkit-scrollbar { display: none; }
-            nav a {
-                padding: 10px 18px;
-                font-size: 0.75rem;
-                white-space: nowrap;
-                flex-shrink: 0;
-                letter-spacing: 0.08em;
-            }
-            .nav-dot, .nav-sep { display: none; }
-
-            /* Prefácio */
+            nav a { padding: 10px 18px; font-size: 0.75rem; white-space: nowrap; flex-shrink: 0; letter-spacing: 0.08em; }
             .prefacio { padding: 50px 20px 60px; }
-            .prefacio-inner {
-                grid-template-columns: 1fr;
-                gap: 36px;
-            }
+            .prefacio-inner { grid-template-columns: 1fr; gap: 36px; }
             .prefacio-bg-text { font-size: 10rem; bottom: -10px; right: -10px; }
             .pref-img-outer { max-width: 280px; margin: 0 auto; }
             .pref-img-outer img { aspect-ratio: 3/4; }
             .pref-txt h2 { font-size: 2rem; }
             .pref-txt p { font-size: 1.05rem; }
             .pref-ps { font-size: 1rem; }
-
-            /* Sumário */
             .sumario { padding: 60px 20px; }
             .sumario::before { font-size: 8rem; }
             .sumario h2 { font-size: 2.4rem; }
             .sumario-titulo { font-size: 1rem; }
             .sumario-item { padding: 18px 0; gap: 10px; }
             .sumario-item-left { gap: 12px; }
-            .sumario-btn {
-                width: 38px; height: 38px;
-                font-size: 1.1rem;
-                /* área de toque maior */
-                min-width: 44px; min-height: 44px;
-            }
+            .sumario-btn { width: 38px; height: 38px; font-size: 1.1rem; min-width: 44px; min-height: 44px; }
             .pag-track { padding: 8px 18px; }
-
-            /* Footer */
             footer { padding: 50px 20px 36px; }
-
-            /* WhatsApp — posição mais segura em mobile */
-            .whatsapp {
-                bottom: 16px; right: 16px;
-                padding: 12px 16px;
-                font-size: 0.8rem;
-            }
+            .whatsapp { bottom: 16px; right: 16px; padding: 12px 16px; font-size: 0.8rem; }
             .scroll-top { bottom: 70px; right: 16px; }
         }
 
@@ -802,17 +732,13 @@
             nav a { padding: 9px 14px; font-size: 0.7rem; }
         }
 
-        /* Garante área de toque mínima em todos os links/botões mobile */
         @media (hover: none) {
-            nav a, .sumario-btn, .whatsapp, .scroll-top {
-                min-height: 44px;
-            }
+            nav a, .sumario-btn, .whatsapp, .scroll-top { min-height: 44px; }
         }
     </style>
 </head>
 <body>
 
-<!-- Cursor -->
 <div class="cursor" id="cursor"></div>
 <div class="cursor-ring" id="cursorRing"></div>
 
@@ -820,10 +746,8 @@
 <section class="hero" id="inicio">
     <div class="hero-bg" id="heroBg">
         <div class="hero-circle-bg"></div>
-        <!-- Arcos -->
         <div class="hero-arc" style="width:700px;height:700px;top:50%;left:50%;transform:translate(-50%,-50%);"></div>
         <div class="hero-arc" style="width:500px;height:500px;top:50%;left:50%;transform:translate(-50%,-50%);"></div>
-        <!-- Faixas geradas por JS -->
     </div>
 
     <div class="hero-content">
@@ -848,27 +772,20 @@
         <h1 class="brand-title">Deb<em>/</em>Ateliê</h1>
         <p class="brand-sub">cada peça, uma história</p>
     </div>
-
-
 </section>
 
 <!-- ══ NAV ══ -->
 <nav>
-    <a href="bolsa.html"><span class="nav-dot"></span>Bolsas</a>
-    <div class="nav-sep"></div>
-    <a href="jogos.html"><span class="nav-dot"></span>Tapetes</a>
-    <div class="nav-sep"></div>
-    <a href="casa.html"><span class="nav-dot"></span>Casa</a>
-    <div class="nav-sep"></div>
-    <a href="bebes.html"><span class="nav-dot"></span>Bebês</a>
+    <a href="bolsa.html">Bolsas</a>
+    <a href="tapetes.html">Tapetes</a>
+    <a href="casa.html">Casa</a>
+    <a href="bebes.html">Bebês</a>
 </nav>
 
 <!-- ══ PREFÁCIO ══ -->
 <div class="prefacio" id="prefacio">
     <div class="prefacio-bg-text">D</div>
     <div class="prefacio-inner">
-
-        <!-- Imagem -->
         <div class="pref-img-wrap">
             <div class="pref-img-outer">
                 <div class="pref-corner pref-corner-tl"></div>
@@ -878,15 +795,13 @@
                 <img src="bixo.png" alt="Deb/Ateliê" onerror="this.style.opacity='0'">
             </div>
         </div>
-
-        <!-- Texto -->
         <div class="pref-txt">
             <p class="pref-label">
                 <span class="pref-label-dash"></span>
                 Prefácio
                 <span class="pref-label-dash"></span>
             </p>
-            <h2>Bem-<em>vindo(a)</em><br>ao meu <em>ateliê</em></h2>
+            <h2>Bem-<em>vindo(a)</em><br><em></em></h2>
             <div class="pref-divider"></div>
             <p>
                 Faço neste site como os autores fazem em um livro —
@@ -899,7 +814,6 @@
                 veja esse site como revista! 😉
             </p>
         </div>
-
     </div>
 </div>
 
@@ -992,12 +906,10 @@
 </a>
 
 <button class="scroll-top" id="scrollTop" aria-label="Voltar ao topo">↑</button>
-
-<!-- Page Flip Canvas -->
 <canvas id="pageFlipCanvas"></canvas>
 
 <script>
-/* ══ CURSOR — desktop only ══ */
+/* ══ CURSOR ══ */
 var isTouchDevice = ('ontouchstart' in window) || navigator.maxTouchPoints > 0;
 var cur = document.getElementById('cursor');
 var ring = document.getElementById('cursorRing');
@@ -1013,14 +925,8 @@ if (isTouchDevice) {
         ring.style.top  = e.clientY + 'px';
     });
     document.querySelectorAll('a, button').forEach(function(el) {
-        el.addEventListener('mouseenter', function() {
-            cur.style.width = '20px'; cur.style.height = '20px';
-            ring.style.opacity = '0.8';
-        });
-        el.addEventListener('mouseleave', function() {
-            cur.style.width = '12px'; cur.style.height = '12px';
-            ring.style.opacity = '0.5';
-        });
+        el.addEventListener('mouseenter', function() { cur.style.width='20px'; cur.style.height='20px'; ring.style.opacity='0.8'; });
+        el.addEventListener('mouseleave', function() { cur.style.width='12px'; cur.style.height='12px'; ring.style.opacity='0.5'; });
     });
 }
 
@@ -1039,12 +945,8 @@ if (isTouchDevice) {
 
 /* ══ SCROLL TOP ══ */
 var sb = document.getElementById('scrollTop');
-window.addEventListener('scroll', function() {
-    sb.style.display = window.scrollY > 300 ? 'flex' : 'none';
-});
-sb.addEventListener('click', function() {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-});
+window.addEventListener('scroll', function() { sb.style.display = window.scrollY > 300 ? 'flex' : 'none'; });
+sb.addEventListener('click', function() { window.scrollTo({ top: 0, behavior: 'smooth' }); });
 
 /* ══ INDICADOR PÁGINA ══ */
 (function() {
@@ -1059,198 +961,91 @@ sb.addEventListener('click', function() {
     });
 })();
 
-/* ══ VIRAR PÁGINA — Canvas ══ */
+/* ══ VIRAR PÁGINA ══ */
 (function() {
     var canvas = document.getElementById('pageFlipCanvas');
     var ctx = canvas.getContext('2d');
-    var targetUrl = null;
-    var animStart = null;
-    var DURATION = 900;
-    var raf = null;
+    var targetUrl = null, animStart = null, DURATION = 900, raf = null;
 
-    function resize() {
-        canvas.width  = window.innerWidth;
-        canvas.height = window.innerHeight;
-    }
-    window.addEventListener('resize', resize);
-    resize();
+    function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+    window.addEventListener('resize', resize); resize();
 
-    /* Desenha linhas horizontais de papel */
     function drawLines(ctx, x, y, w, h, alpha) {
-        ctx.save();
-        ctx.globalAlpha = alpha * 0.12;
-        ctx.strokeStyle = '#8B6050';
-        ctx.lineWidth = 1;
+        ctx.save(); ctx.globalAlpha = alpha * 0.12; ctx.strokeStyle = '#8B6050'; ctx.lineWidth = 1;
         var step = 28;
-        for (var ly = y + step; ly < y + h; ly += step) {
-            ctx.beginPath();
-            ctx.moveTo(x, ly);
-            ctx.lineTo(x + w, ly);
-            ctx.stroke();
-        }
+        for (var ly = y + step; ly < y + h; ly += step) { ctx.beginPath(); ctx.moveTo(x, ly); ctx.lineTo(x + w, ly); ctx.stroke(); }
         ctx.restore();
     }
 
-    /* ease in-out cubic */
-    function ease(t) {
-        return t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t+2,3)/2;
-    }
+    function ease(t) { return t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t+2,3)/2; }
 
     function drawFlip(progress) {
         var W = canvas.width, H = canvas.height;
         ctx.clearRect(0, 0, W, H);
-
-        var p = ease(progress); // 0 → 1
-
-        /* ── Cobre a tela inteira com papel — evita ver a página por baixo ── */
-        var bgG = ctx.createLinearGradient(0, 0, W, 0);
-        bgG.addColorStop(0, '#F0E8DC');
-        bgG.addColorStop(0.5, '#F7EFE5');
-        bgG.addColorStop(1, '#FBF5EE');
-        ctx.fillStyle = bgG;
+        var p = ease(progress);
+        ctx.fillStyle = 'rgba(0,0,0,' + (Math.sin(p * Math.PI) * 0.45) + ')';
         ctx.fillRect(0, 0, W, H);
-        drawLines(ctx, 0, 0, W, H, 0.5);
-
-        /* Sombra geral sobre a página antiga */
-        var shadowAlpha = Math.sin(p * Math.PI) * 0.45;
-        ctx.fillStyle = 'rgba(0,0,0,' + shadowAlpha + ')';
-        ctx.fillRect(0, 0, W, H);
-
-        /* --- NOVA PÁGINA (atrás, revela da esquerda) --- */
         var newReveal = Math.max(0, (p - 0.35) / 0.65);
         if (newReveal > 0) {
             var nw = W * newReveal;
-            ctx.save();
-            ctx.beginPath();
-            ctx.rect(0, 0, nw, H);
-            ctx.clip();
-            /* fundo papel novo */
+            ctx.save(); ctx.beginPath(); ctx.rect(0, 0, nw, H); ctx.clip();
             var ng = ctx.createLinearGradient(0, 0, nw, 0);
-            ng.addColorStop(0,   '#F7EFE5');
-            ng.addColorStop(0.6, '#FBF5EE');
-            ng.addColorStop(1,   '#f5ede0');
-            ctx.fillStyle = ng;
-            ctx.fillRect(0, 0, nw, H);
+            ng.addColorStop(0,'#F7EFE5'); ng.addColorStop(0.6,'#FBF5EE'); ng.addColorStop(1,'#f5ede0');
+            ctx.fillStyle = ng; ctx.fillRect(0, 0, nw, H);
             drawLines(ctx, 0, 0, nw, H, newReveal);
-            /* borda de luz na revelação */
-            var edgeG = ctx.createLinearGradient(nw - 30, 0, nw, 0);
-            edgeG.addColorStop(0, 'rgba(255,255,255,0)');
-            edgeG.addColorStop(1, 'rgba(255,255,255,0.18)');
-            ctx.fillStyle = edgeG;
-            ctx.fillRect(nw - 30, 0, 30, H);
-            ctx.restore();
+            var edgeG = ctx.createLinearGradient(nw-30,0,nw,0);
+            edgeG.addColorStop(0,'rgba(255,255,255,0)'); edgeG.addColorStop(1,'rgba(255,255,255,0.18)');
+            ctx.fillStyle = edgeG; ctx.fillRect(nw-30,0,30,H); ctx.restore();
         }
-
-        /* --- PÁGINA QUE VIRA (dobra da direita para a esquerda) --- */
         var foldProgress = Math.min(1, p / 0.75);
-        /* largura visível da página que vira: começa em W/2, termina em 0 */
         var pageW = (W / 2) * (1 - foldProgress);
-
         if (pageW > 1) {
-            /* Perspectiva: a página se estreita conforme vira */
             var skewFactor = foldProgress * 0.35;
-            var topX    = W / 2 - pageW;
-            var bottomX = W / 2 - pageW * (1 - skewFactor);
-
-            ctx.save();
-            /* recorte em trapézio */
-            ctx.beginPath();
-            ctx.moveTo(W / 2, 0);
-            ctx.lineTo(W / 2, H);
-            ctx.lineTo(bottomX, H);
-            ctx.lineTo(topX, 0);
-            ctx.closePath();
-            ctx.clip();
-
-            /* fundo da página virando */
-            var pg = ctx.createLinearGradient(topX, 0, W / 2, 0);
-            pg.addColorStop(0,   '#f0e4d4');
-            pg.addColorStop(0.5, '#faf2e8');
-            pg.addColorStop(1,   '#fdf8f3');
+            var topX = W/2 - pageW, bottomX = W/2 - pageW * (1 - skewFactor);
+            ctx.save(); ctx.beginPath();
+            ctx.moveTo(W/2,0); ctx.lineTo(W/2,H); ctx.lineTo(bottomX,H); ctx.lineTo(topX,0);
+            ctx.closePath(); ctx.clip();
+            var pg = ctx.createLinearGradient(topX,0,W/2,0);
+            pg.addColorStop(0,'#f0e4d4'); pg.addColorStop(0.5,'#faf2e8'); pg.addColorStop(1,'#fdf8f3');
             ctx.fillStyle = pg;
-            ctx.beginPath();
-            ctx.moveTo(W / 2, 0);
-            ctx.lineTo(W / 2, H);
-            ctx.lineTo(bottomX, H);
-            ctx.lineTo(topX, 0);
-            ctx.closePath();
-            ctx.fill();
-
-            drawLines(ctx, topX, 0, W / 2 - topX, H, 1 - foldProgress);
-
-            /* sombra na borda esquerda da página virando */
-            var sg = ctx.createLinearGradient(topX, 0, topX + 50, 0);
-            sg.addColorStop(0, 'rgba(0,0,0,0.22)');
-            sg.addColorStop(1, 'rgba(0,0,0,0)');
+            ctx.beginPath(); ctx.moveTo(W/2,0); ctx.lineTo(W/2,H); ctx.lineTo(bottomX,H); ctx.lineTo(topX,0);
+            ctx.closePath(); ctx.fill();
+            drawLines(ctx, topX, 0, W/2-topX, H, 1-foldProgress);
+            var sg = ctx.createLinearGradient(topX,0,topX+50,0);
+            sg.addColorStop(0,'rgba(0,0,0,0.22)'); sg.addColorStop(1,'rgba(0,0,0,0)');
             ctx.fillStyle = sg;
-            ctx.beginPath();
-            ctx.moveTo(W / 2, 0);
-            ctx.lineTo(W / 2, H);
-            ctx.lineTo(bottomX, H);
-            ctx.lineTo(topX, 0);
-            ctx.closePath();
-            ctx.fill();
-
-            /* brilho na borda direita (lombada) */
-            var lg = ctx.createLinearGradient(W/2 - 18, 0, W/2, 0);
-            lg.addColorStop(0, 'rgba(255,255,255,0)');
-            lg.addColorStop(0.6, 'rgba(255,255,255,0.25)');
-            lg.addColorStop(1, 'rgba(255,255,255,0.08)');
-            ctx.fillStyle = lg;
-            ctx.fillRect(W/2 - 18, 0, 18, H);
-
-            ctx.restore();
+            ctx.beginPath(); ctx.moveTo(W/2,0); ctx.lineTo(W/2,H); ctx.lineTo(bottomX,H); ctx.lineTo(topX,0);
+            ctx.closePath(); ctx.fill();
+            var lg = ctx.createLinearGradient(W/2-18,0,W/2,0);
+            lg.addColorStop(0,'rgba(255,255,255,0)'); lg.addColorStop(0.6,'rgba(255,255,255,0.25)'); lg.addColorStop(1,'rgba(255,255,255,0.08)');
+            ctx.fillStyle = lg; ctx.fillRect(W/2-18,0,18,H); ctx.restore();
         }
-
-        /* --- SOMBRA NA LOMBADA (centro) --- */
         var spineAlpha = Math.sin(p * Math.PI) * 0.5;
-        var spineG = ctx.createLinearGradient(W/2 - 28, 0, W/2 + 28, 0);
-        spineG.addColorStop(0,   'rgba(0,0,0,0)');
-        spineG.addColorStop(0.4, 'rgba(0,0,0,' + spineAlpha + ')');
-        spineG.addColorStop(0.6, 'rgba(0,0,0,' + spineAlpha + ')');
-        spineG.addColorStop(1,   'rgba(0,0,0,0)');
-        ctx.fillStyle = spineG;
-        ctx.fillRect(W/2 - 28, 0, 56, H);
-
-        /* --- CURL no canto inferior direito antes de começar (efeito sutil) --- */
+        var spineG = ctx.createLinearGradient(W/2-28,0,W/2+28,0);
+        spineG.addColorStop(0,'rgba(0,0,0,0)'); spineG.addColorStop(0.4,'rgba(0,0,0,'+spineAlpha+')');
+        spineG.addColorStop(0.6,'rgba(0,0,0,'+spineAlpha+')'); spineG.addColorStop(1,'rgba(0,0,0,0)');
+        ctx.fillStyle = spineG; ctx.fillRect(W/2-28,0,56,H);
         if (p < 0.15) {
             var curlSize = 36 * (1 - p / 0.15);
-            ctx.save();
-            ctx.translate(W, H);
-            ctx.beginPath();
-            ctx.moveTo(-curlSize, 0);
-            ctx.quadraticCurveTo(-curlSize * 0.5, -curlSize * 0.5, 0, -curlSize);
-            ctx.lineTo(0, 0);
-            ctx.closePath();
-            var curlG = ctx.createRadialGradient(-curlSize*0.3, -curlSize*0.3, 0, -curlSize*0.3, -curlSize*0.3, curlSize*0.8);
-            curlG.addColorStop(0, 'rgba(200,160,130,0.6)');
-            curlG.addColorStop(1, 'rgba(200,160,130,0)');
-            ctx.fillStyle = curlG;
-            ctx.fill();
-            ctx.restore();
+            ctx.save(); ctx.translate(W, H); ctx.beginPath();
+            ctx.moveTo(-curlSize,0); ctx.quadraticCurveTo(-curlSize*0.5,-curlSize*0.5,0,-curlSize);
+            ctx.lineTo(0,0); ctx.closePath();
+            var curlG = ctx.createRadialGradient(-curlSize*0.3,-curlSize*0.3,0,-curlSize*0.3,-curlSize*0.3,curlSize*0.8);
+            curlG.addColorStop(0,'rgba(200,160,130,0.6)'); curlG.addColorStop(1,'rgba(200,160,130,0)');
+            ctx.fillStyle = curlG; ctx.fill(); ctx.restore();
         }
     }
 
     function animate(ts) {
         if (!animStart) animStart = ts;
-        var elapsed = ts - animStart;
-        var progress = Math.min(elapsed / DURATION, 1);
-
+        var progress = Math.min((ts - animStart) / DURATION, 1);
         drawFlip(progress);
-
-        if (progress < 1) {
-            raf = requestAnimationFrame(animate);
-        } else {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            canvas.style.display = 'none';
-            if (targetUrl) window.location.href = targetUrl;
-        }
+        if (progress < 1) { raf = requestAnimationFrame(animate); }
+        else { ctx.clearRect(0,0,canvas.width,canvas.height); canvas.style.display='none'; if (targetUrl) window.location.href = targetUrl; }
     }
 
     window.triggerFlip = function(url) {
-        targetUrl = url;
-        animStart = null;
-        canvas.style.display = 'block';
+        targetUrl = url; animStart = null; canvas.style.display = 'block';
         if (raf) cancelAnimationFrame(raf);
         raf = requestAnimationFrame(animate);
     };
@@ -1263,19 +1058,9 @@ sb.addEventListener('click', function() {
         e.preventDefault();
         window.triggerFlip(href);
     });
-
-    /* Touch: swipe para a esquerda dispara flip */
-    var touchStartX = 0;
-    document.addEventListener('touchstart', function(e) {
-        touchStartX = e.touches[0].clientX;
-    }, { passive: true });
-    document.addEventListener('touchend', function(e) {
-        var dx = e.changedTouches[0].clientX - touchStartX;
-        /* swipe para esquerda em links — já tratado pelo click acima */
-    }, { passive: true });
 })();
 
-/* ══ PARALLAX SUAVE NO HERO ══ */
+/* ══ PARALLAX ══ */
 window.addEventListener('scroll', function() {
     var s = window.scrollY;
     var bg = document.querySelector('.hero-circle-bg');
