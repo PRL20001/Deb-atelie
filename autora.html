@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Sobre a Autora — Deb/Ateliê</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Jost:wght@300;400;500;600&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --cream: #FBF5EE;
+            --blush: #F2C4CE;
+            --blush-deep: #E8A0B0;
+            --rose: #C97B8A;
+            --mauve: #af7a8d;
+            --mauve-dark: #8f5f72;
+            --mauve-light: #c99aaa;
+            --mauve-pale: #f0dde3;
+            --sage: #8A9B7A;
+            --brown: #6B4C42;
+            --brown-light: #A67C72;
+            --gold: #C4964A;
+            --ink: #2C1F1A;
+            --paper: #F7EFE5;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Jost', sans-serif;
+            background: var(--cream);
+            color: var(--ink);
+            overflow-x: hidden;
+            cursor: none;
+        }
+
+        /* ══ CURSOR ══ */
+        .cursor {
+            position: fixed;
+            width: 12px; height: 12px;
+            background: var(--mauve);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 99999;
+            transform: translate(-50%, -50%);
+            transition: width 0.3s, height 0.3s;
+            mix-blend-mode: multiply;
+        }
+        .cursor-ring {
+            position: fixed;
+            width: 36px; height: 36px;
+            border: 1.5px solid var(--mauve);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 99998;
+            transform: translate(-50%, -50%);
+            transition: opacity 0.3s;
+            opacity: 0.5;
+        }
+
+        /* ══ GRAIN ══ */
+        body::before {
+            content: '';
+            position: fixed; inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+            pointer-events: none; z-index: 9998; opacity: 0.4;
+        }
+
+        /* ══ NAV ══ */
+        nav {
+            width: 100%;
+            background: var(--ink);
+            padding: 12px 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+        nav a {
+            text-decoration: none;
+            color: var(--ink);
+            font-weight: 600;
+            font-size: 0.82rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            padding: 11px 24px;
+            transition: all 0.3s ease;
+            background: var(--cream);
+            border-radius: 30px;
+            border: 2px solid transparent;
+        }
+        nav a:hover {
+            background: var(--mauve);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(175,122,141,0.45);
+        }
+        nav a.home {
+            background: var(--mauve-pale);
+            color: var(--mauve-dark);
+        }
+        nav a.home:hover {
+            background: var(--mauve);
+            color: white;
+        }
+
+        /* ══ HERO HEADER ══ */
+        .page-hero {
+            background: var(--mauve);
+            position: relative;
+            overflow: hidden;
+            padding: 80px 40px 70px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        /* wavy stripes background */
+        .page-hero::before {
+            content: '';
+            position: absolute; inset: 0;
+            background-image: repeating-linear-gradient(
+                90deg,
+                rgba(255,255,255,0.06) 0px, rgba(255,255,255,0.06) 18px,
+                transparent 18px, transparent 36px
+            );
+            mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='100%25'%3E%3Cpath d='M20 0 Q30 25 20 50 Q10 75 20 100' fill='none' stroke='white' stroke-width='18' opacity='0.08'/%3E%3C/svg%3E");
+            mask-size: 40px 120px;
+            mask-repeat: repeat;
+        }
+
+        .page-hero-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.65rem;
+            letter-spacing: 0.35em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 18px;
+            font-weight: 500;
+            position: relative;
+            z-index: 1;
+            animation: fadeUp 0.8s ease 0.1s both;
+        }
+        .hero-dash { width: 32px; height: 1px; background: rgba(255,255,255,0.4); }
+
+        .page-hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.8rem, 8vw, 5rem);
+            font-weight: 400;
+            color: white;
+            line-height: 1.1;
+            position: relative;
+            z-index: 1;
+            animation: fadeUp 0.8s ease 0.25s both;
+        }
+        .page-hero h1 em {
+            font-style: italic;
+            color: var(--blush);
+        }
+
+        .page-hero-sub {
+            font-family: 'IM Fell English', serif;
+            font-style: italic;
+            font-size: 1rem;
+            color: rgba(255,255,255,0.65);
+            margin-top: 10px;
+            position: relative;
+            z-index: 1;
+            animation: fadeUp 0.8s ease 0.4s both;
+        }
+
+        /* circle logo badge */
+        .hero-badge {
+            position: absolute;
+            top: 28px; right: 48px;
+            width: 70px; height: 70px;
+            border-radius: 50%;
+            border: 1.5px dashed rgba(255,255,255,0.3);
+            display: flex; align-items: center; justify-content: center;
+            animation: spinSlow 20s linear infinite;
+        }
+        .hero-badge-inner {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 0.7rem;
+            color: rgba(255,255,255,0.5);
+            text-align: center;
+            line-height: 1.4;
+            animation: spinSlow 20s linear infinite reverse;
+        }
+
+        /* ══ MAIN CONTENT ══ */
+        .sobre-wrap {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 80px 40px 100px;
+            display: grid;
+            grid-template-columns: 340px 1fr;
+            gap: 70px;
+            align-items: start;
+        }
+
+        /* ══ LEFT COLUMN ══ */
+        .sobre-left {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+            animation: fadeUp 0.9s ease 0.3s both;
+        }
+
+        /* PORTRAIT */
+        .portrait-frame {
+            position: relative;
+        }
+        .portrait-outer {
+            position: relative;
+            padding: 14px;
+            background: white;
+            box-shadow: 0 12px 48px rgba(175,122,141,0.18), 0 2px 12px rgba(0,0,0,0.06);
+        }
+        .portrait-outer::before {
+            content: '';
+            position: absolute; inset: 0;
+            border: 1px solid rgba(175,122,141,0.2);
+        }
+        .portrait-outer::after {
+            content: '';
+            position: absolute; inset: 7px;
+            border: 1px solid rgba(175,122,141,0.1);
+            pointer-events: none;
+        }
+
+        /* Gold corners */
+        .p-corner { position: absolute; width: 18px; height: 18px; }
+        .p-corner::before, .p-corner::after { content: ''; position: absolute; background: var(--gold); }
+        .p-corner-tl { top: -1px; left: -1px; }
+        .p-corner-tl::before { width: 18px; height: 2px; top: 0; left: 0; }
+        .p-corner-tl::after  { width: 2px; height: 18px; top: 0; left: 0; }
+        .p-corner-tr { top: -1px; right: -1px; }
+        .p-corner-tr::before { width: 18px; height: 2px; top: 0; right: 0; }
+        .p-corner-tr::after  { width: 2px; height: 18px; top: 0; right: 0; }
+        .p-corner-bl { bottom: -1px; left: -1px; }
+        .p-corner-bl::before { width: 18px; height: 2px; bottom: 0; left: 0; }
+        .p-corner-bl::after  { width: 2px; height: 18px; bottom: 0; left: 0; }
+        .p-corner-br { bottom: -1px; right: -1px; }
+        .p-corner-br::before { width: 18px; height: 2px; bottom: 0; right: 0; }
+        .p-corner-br::after  { width: 2px; height: 18px; bottom: 0; right: 0; }
+
+        .portrait-img {
+            width: 100%;
+            aspect-ratio: 3/4;
+            object-fit: cover;
+            display: block;
+            background: var(--mauve-pale);
+        }
+        .portrait-placeholder {
+            width: 100%;
+            aspect-ratio: 3/4;
+            background: linear-gradient(135deg, var(--mauve-pale) 0%, #e8c8d4 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .portrait-placeholder .ph-icon { font-size: 3.5rem; opacity: 0.4; }
+        .portrait-placeholder .ph-txt {
+            font-family: 'IM Fell English', serif;
+            font-style: italic;
+            font-size: 0.8rem;
+            color: var(--mauve-dark);
+            opacity: 0.6;
+            letter-spacing: 0.05em;
+        }
+
+        /* ANIMAL IMAGE */
+        .animal-frame {
+            position: relative;
+            padding: 6px;
+            background: white;
+            box-shadow: 0 8px 32px rgba(175,122,141,0.15);
+            display: block;
+            width: 70%;
+            margin: 0 auto;
+        }
+        .animal-frame::before {
+            content: '';
+            position: absolute; inset: 0;
+            border: 1px solid rgba(175,122,141,0.2);
+        }
+        .animal-img {
+            width: 100%;
+            height: auto;
+            max-height: 260px;
+            object-fit: contain;
+            display: block;
+        }
+        .animal-placeholder {
+            width: 100%;
+            padding: 28px 0;
+            background: linear-gradient(135deg, var(--mauve-pale) 0%, #edd5dc 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .animal-placeholder .ph-icon { font-size: 3rem; opacity: 0.4; }
+        .animal-placeholder .ph-txt {
+            font-family: 'IM Fell English', serif;
+            font-style: italic;
+            font-size: 0.78rem;
+            color: var(--mauve-dark);
+            opacity: 0.6;
+        }
+
+        /* Instagram tag */
+        .insta-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--mauve);
+            color: white;
+            padding: 10px 18px;
+            border-radius: 30px;
+            font-size: 0.82rem;
+            font-weight: 500;
+            letter-spacing: 0.04em;
+            text-decoration: none;
+            align-self: flex-start;
+            transition: all 0.3s;
+            box-shadow: 0 4px 16px rgba(175,122,141,0.35);
+        }
+        .insta-tag:hover {
+            background: var(--mauve-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(175,122,141,0.4);
+        }
+        .insta-tag span { font-size: 1rem; }
+
+        /* ══ RIGHT COLUMN ══ */
+        .sobre-right {
+            animation: fadeUp 0.9s ease 0.5s both;
+        }
+
+        .sobre-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.65rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--mauve);
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+        .label-dash { width: 28px; height: 1px; background: var(--mauve); opacity: 0.5; }
+
+        .sobre-right h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.2rem, 5vw, 3.2rem);
+            font-weight: 400;
+            color: var(--ink);
+            line-height: 1.15;
+            margin-bottom: 32px;
+        }
+        .sobre-right h2 em {
+            font-style: italic;
+            color: var(--mauve);
+        }
+
+        .sobre-divider {
+            width: 50px; height: 2px;
+            background: linear-gradient(to right, var(--mauve), transparent);
+            margin: 28px 0;
+        }
+
+        .sobre-body {
+            font-size: 1.1rem;
+            line-height: 1.9;
+            color: #3a2a26;
+            font-weight: 400;
+        }
+        .sobre-body strong {
+            color: var(--mauve-dark);
+            font-weight: 600;
+        }
+
+        .sobre-quote {
+            margin: 36px 0;
+            padding: 28px 32px;
+            background: var(--mauve-pale);
+            border-left: 3px solid var(--mauve);
+            position: relative;
+        }
+        .sobre-quote::before {
+            content: '"';
+            position: absolute;
+            top: -10px; left: 20px;
+            font-family: 'Playfair Display', serif;
+            font-size: 5rem;
+            color: var(--mauve);
+            opacity: 0.25;
+            line-height: 1;
+        }
+        .sobre-quote p {
+            font-family: 'IM Fell English', serif;
+            font-style: italic;
+            font-size: 1.15rem;
+            line-height: 1.7;
+            color: var(--mauve-dark);
+        }
+
+        /* ══ LOGO SECTION ══ */
+        .logo-section {
+            background: var(--mauve);
+            padding: 70px 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 28px;
+            position: relative;
+            overflow: hidden;
+        }
+        .logo-section::before {
+            content: '';
+            position: absolute; inset: 0;
+            background-image: repeating-linear-gradient(
+                90deg,
+                rgba(255,255,255,0.05) 0px, rgba(255,255,255,0.05) 18px,
+                transparent 18px, transparent 36px
+            );
+        }
+
+        .logo-section-label {
+            font-size: 0.65rem;
+            letter-spacing: 0.35em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.5);
+            font-weight: 500;
+            position: relative;
+            z-index: 1;
+        }
+
+        .logo-img-wrap {
+            position: relative;
+            width: 160px; height: 160px;
+            z-index: 1;
+        }
+        .logo-img-wrap::before {
+            content: '';
+            position: absolute;
+            inset: -12px;
+            border-radius: 50%;
+            border: 1px solid rgba(255,255,255,0.25);
+        }
+        .logo-img-wrap::after {
+            content: '';
+            position: absolute;
+            inset: -24px;
+            border-radius: 50%;
+            border: 1px dashed rgba(255,255,255,0.15);
+            animation: spinSlow 20s linear infinite;
+        }
+
+        .logo-img {
+            width: 160px; height: 160px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid white;
+            background: var(--mauve-pale);
+            display: block;
+        }
+        .logo-placeholder {
+            width: 160px; height: 160px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--mauve-pale), #d4a0b0);
+            border: 3px solid white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+        }
+        .logo-placeholder .ph-icon { font-size: 2.5rem; opacity: 0.5; }
+        .logo-placeholder .ph-txt {
+            font-family: 'IM Fell English', serif;
+            font-style: italic;
+            font-size: 0.65rem;
+            color: var(--mauve-dark);
+            opacity: 0.7;
+        }
+
+        .logo-brand {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            font-weight: 400;
+            color: white;
+            position: relative;
+            z-index: 1;
+        }
+        .logo-brand em { font-style: italic; color: var(--blush); }
+
+        /* ══ FOOTER ══ */
+        footer {
+            background: var(--ink);
+            padding: 60px 40px 40px;
+            text-align: center;
+            position: relative;
+        }
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 20%; right: 20%;
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--mauve), transparent);
+        }
+        .footer-sig {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.6rem;
+            color: var(--blush);
+            margin-bottom: 16px;
+        }
+        .footer-sub {
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+            color: rgba(255,255,255,0.25);
+            line-height: 2;
+            font-weight: 300;
+        }
+        .footer-ornament {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 28px;
+            opacity: 0.3;
+        }
+        .orn-line { width: 50px; height: 1px; background: var(--blush); }
+        .orn-diamond { width: 6px; height: 6px; background: var(--gold); transform: rotate(45deg); }
+
+        /* ══ WHATSAPP ══ */
+        .whatsapp {
+            position: fixed;
+            bottom: 26px; right: 26px;
+            background: #25D366;
+            color: white;
+            border-radius: 50px;
+            padding: 14px 22px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.85rem;
+            box-shadow: 0 6px 24px rgba(37,211,102,0.4);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+            z-index: 1000;
+        }
+        .whatsapp:hover { transform: scale(1.05); }
+
+        #pageFlipCanvas {
+            display: none;
+            position: fixed; inset: 0;
+            width: 100%; height: 100%;
+            z-index: 99999;
+            pointer-events: none;
+        }
+
+        /* ══ ANIMATIONS ══ */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(24px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes spinSlow {
+            from { transform: rotate(0deg); }
+            to   { transform: rotate(360deg); }
+        }
+
+        /* ══ RESPONSIVE ══ */
+        @media (max-width: 768px) {
+            body { cursor: auto; }
+            .cursor, .cursor-ring { display: none; }
+            nav { padding: 10px 12px; gap: 8px; justify-content: flex-start; overflow-x: auto; scrollbar-width: none; flex-wrap: nowrap; }
+            nav::-webkit-scrollbar { display: none; }
+            nav a { padding: 10px 16px; font-size: 0.75rem; white-space: nowrap; flex-shrink: 0; }
+            .page-hero { padding: 60px 24px 50px; }
+            .hero-badge { display: none; }
+            .sobre-wrap { grid-template-columns: 1fr; gap: 40px; padding: 50px 24px 70px; }
+            .sobre-right h2 { font-size: 2rem; }
+            .sobre-body { font-size: 1rem; }
+            .logo-section { padding: 50px 24px; }
+            footer { padding: 50px 20px 36px; }
+            .whatsapp { bottom: 16px; right: 16px; padding: 12px 16px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- ══ NAV ══ -->
+<nav>
+    <a href="index.html" class="home">← Início</a>
+    <a href="bolsa.html">Bolsas</a>
+    <a href="tapetes.html">Tapetes</a>
+    <a href="casa.html">Casa</a>
+    <a href="bebes.html">Bebês</a>
+</nav>
+
+<!-- ══ HERO ══ -->
+<header class="page-hero">
+    <div class="hero-badge">
+        <span class="hero-badge-inner">Deb<br>Ateliê</span>
+    </div>
+    <div class="page-hero-label">
+        <span class="hero-dash"></span>
+        capítulo vi
+        <span class="hero-dash"></span>
+    </div>
+    <h1>Sobre a <em>Autora</em></h1>
+    <p class="page-hero-sub">a pessoa por trás de cada peça</p>
+</header>
+
+<!-- ══ CONTEÚDO ══ -->
+<main>
+    <div class="sobre-wrap">
+
+        <!-- COLUNA ESQUERDA -->
+        <aside class="sobre-left">
+
+            <!-- Foto da autora -->
+            <div class="portrait-frame">
+                <div class="portrait-outer">
+                    <div class="p-corner p-corner-tl"></div>
+                    <div class="p-corner p-corner-tr"></div>
+                    <div class="p-corner p-corner-bl"></div>
+                    <div class="p-corner p-corner-br"></div>
+                    <img
+                        src="debora.jpeg"
+                        alt="Débora Ribeiro Lima"
+                        class="portrait-img"
+                        onerror="this.outerHTML='<div class=portrait-placeholder><span class=ph-icon>👩</span><span class=ph-txt>foto da autora</span></div>'"
+                    >
+                </div>
+            </div>
+
+            <!-- Imagem da onça -->
+            <div class="animal-frame">
+                <img
+                    src="bixo.png"
+                    alt="Onça — símbolo do ateliê"
+                    class="animal-img"
+                    onerror="this.outerHTML='<div class=animal-placeholder><span class=ph-icon>🐆</span><span class=ph-txt>imagem da onça</span></div>'"
+                >
+            </div>
+
+            <!-- Instagram -->
+            <a href="https://instagram.com/deb.atelie" class="insta-tag" target="_blank">
+                <span>📷</span> @deb.atelie
+            </a>
+
+        </aside>
+
+        <!-- COLUNA DIREITA -->
+        <section class="sobre-right">
+            <div class="sobre-label">
+                <span class="label-dash"></span>
+                Sobre a autora
+                <span class="label-dash"></span>
+            </div>
+
+            <h2>Débora<br><em>Ribeiro Lima</em></h2>
+
+            <div class="sobre-divider"></div>
+
+            <p class="sobre-body">
+                <strong>Débora Ribeiro Lima</strong> nasceu em Minas Gerais, Brasil. Criadora deste ateliê, encontrou no artesanato uma forma de explorar e expressar sua criatividade, transformando fios em peças que carregam delicadeza, personalidade e significado.
+            </p>
+
+            <div class="sobre-divider"></div>
+
+            <p class="sobre-body">
+                Entre suas inspirações está a onça, símbolo de força, beleza e presença, que reflete sua admiração pela natureza e por tudo que é belo. Em cada criação, Débora imprime tempo, cuidado e paixão, acreditando que o feito à mão possui uma essência única: a de levar arte, beleza e aconchego para dentro dos lares.
+            </p>
+
+            <div class="sobre-quote">
+                <p>o feito à mão possui uma essência única: a de levar arte, beleza e aconchego para dentro dos lares.</p>
+            </div>
+
+        </section>
+    </div>
+
+    <!-- ══ LOGO SECTION ══ -->
+    <div class="logo-section">
+        <span class="logo-section-label">ateliê artesanal</span>
+        <div class="logo-img-wrap">
+            <img
+                src="pessoa.jpeg"
+                alt="Deb/Ateliê"
+                class="logo-img"
+                onerror="this.outerHTML='<div class=logo-placeholder><span class=ph-icon>🧶</span><span class=ph-txt>logo</span></div>'"
+            >
+        </div>
+        <p class="logo-brand">Deb<em>/</em>Ateliê</p>
+    </div>
+</main>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+    <div class="footer-ornament">
+        <span class="orn-line"></span>
+        <span class="orn-diamond"></span>
+        <span class="orn-line"></span>
+    </div>
+    <p class="footer-sig">Com carinho,</p>
+    <p class="footer-sub">Deb/Ateliê © 2025<br>Cada costura feita com atenção, cada detalhe pensado em você</p>
+</footer>
+
+<a class="whatsapp" href="https://wa.me/5599999999999?text=Olá! Gostaria de saber mais sobre a Deb/Ateliê" target="_blank">
+    💬 Fale conosco
+</a>
+
+<canvas id="pageFlipCanvas"></canvas>
+
+<script>
+/* ══ CURSOR ══ */
+var isTouchDevice = ('ontouchstart' in window) || navigator.maxTouchPoints > 0;
+var cur = document.getElementById('cursor');
+var ring = document.getElementById('cursorRing');
+if (isTouchDevice) {
+    cur.style.display = 'none'; ring.style.display = 'none';
+    document.body.style.cursor = 'auto';
+} else {
+    document.addEventListener('mousemove', function(e) {
+        cur.style.left = e.clientX + 'px'; cur.style.top = e.clientY + 'px';
+        ring.style.left = e.clientX + 'px'; ring.style.top = e.clientY + 'px';
+    });
+    document.querySelectorAll('a, button').forEach(function(el) {
+        el.addEventListener('mouseenter', function() { cur.style.width='20px'; cur.style.height='20px'; ring.style.opacity='0.8'; });
+        el.addEventListener('mouseleave', function() { cur.style.width='12px'; cur.style.height='12px'; ring.style.opacity='0.5'; });
+    });
+}
+
+/* ══ VIRAR PÁGINA ══ */
+(function() {
+    var canvas = document.getElementById('pageFlipCanvas');
+    var ctx = canvas.getContext('2d');
+    var targetUrl = null, animStart = null, DURATION = 900, raf = null;
+
+    function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+    window.addEventListener('resize', resize); resize();
+
+    function drawLines(ctx, x, y, w, h, alpha) {
+        ctx.save(); ctx.globalAlpha = alpha * 0.12; ctx.strokeStyle = '#8B6050'; ctx.lineWidth = 1;
+        for (var ly = y + 28; ly < y + h; ly += 28) { ctx.beginPath(); ctx.moveTo(x, ly); ctx.lineTo(x + w, ly); ctx.stroke(); }
+        ctx.restore();
+    }
+    function ease(t) { return t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t+2,3)/2; }
+
+    function drawFlip(progress) {
+        var W = canvas.width, H = canvas.height;
+        ctx.clearRect(0, 0, W, H);
+        var p = ease(progress);
+        ctx.fillStyle = 'rgba(0,0,0,' + (Math.sin(p * Math.PI) * 0.45) + ')';
+        ctx.fillRect(0, 0, W, H);
+        var newReveal = Math.max(0, (p - 0.35) / 0.65);
+        if (newReveal > 0) {
+            var nw = W * newReveal;
+            ctx.save(); ctx.beginPath(); ctx.rect(0, 0, nw, H); ctx.clip();
+            var ng = ctx.createLinearGradient(0, 0, nw, 0);
+            ng.addColorStop(0,'#F7EFE5'); ng.addColorStop(0.6,'#FBF5EE'); ng.addColorStop(1,'#f5ede0');
+            ctx.fillStyle = ng; ctx.fillRect(0, 0, nw, H);
+            drawLines(ctx, 0, 0, nw, H, newReveal); ctx.restore();
+        }
+        var foldProgress = Math.min(1, p / 0.75);
+        var pageW = (W / 2) * (1 - foldProgress);
+        if (pageW > 1) {
+            var skewFactor = foldProgress * 0.35;
+            var topX = W/2 - pageW, bottomX = W/2 - pageW * (1 - skewFactor);
+            ctx.save(); ctx.beginPath();
+            ctx.moveTo(W/2,0); ctx.lineTo(W/2,H); ctx.lineTo(bottomX,H); ctx.lineTo(topX,0);
+            ctx.closePath(); ctx.clip();
+            var pg = ctx.createLinearGradient(topX,0,W/2,0);
+            pg.addColorStop(0,'#f0e4d4'); pg.addColorStop(0.5,'#faf2e8'); pg.addColorStop(1,'#fdf8f3');
+            ctx.fillStyle = pg;
+            ctx.beginPath(); ctx.moveTo(W/2,0); ctx.lineTo(W/2,H); ctx.lineTo(bottomX,H); ctx.lineTo(topX,0);
+            ctx.closePath(); ctx.fill();
+            drawLines(ctx, topX, 0, W/2-topX, H, 1-foldProgress); ctx.restore();
+        }
+        var spineAlpha = Math.sin(p * Math.PI) * 0.5;
+        var spineG = ctx.createLinearGradient(W/2-28,0,W/2+28,0);
+        spineG.addColorStop(0,'rgba(0,0,0,0)'); spineG.addColorStop(0.4,'rgba(0,0,0,'+spineAlpha+')');
+        spineG.addColorStop(0.6,'rgba(0,0,0,'+spineAlpha+')'); spineG.addColorStop(1,'rgba(0,0,0,0)');
+        ctx.fillStyle = spineG; ctx.fillRect(W/2-28,0,56,H);
+    }
+
+    function animate(ts) {
+        if (!animStart) animStart = ts;
+        var progress = Math.min((ts - animStart) / DURATION, 1);
+        drawFlip(progress);
+        if (progress < 1) { raf = requestAnimationFrame(animate); }
+        else { ctx.clearRect(0,0,canvas.width,canvas.height); canvas.style.display='none'; if (targetUrl) window.location.href = targetUrl; }
+    }
+
+    window.triggerFlip = function(url) {
+        targetUrl = url; animStart = null; canvas.style.display = 'block';
+        if (raf) cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(animate);
+    };
+
+    document.addEventListener('click', function(e) {
+        var a = e.target.closest('a[href]');
+        if (!a) return;
+        var href = a.getAttribute('href');
+        if (!href || href.startsWith('#') || href.startsWith('http') || href.startsWith('mailto') || href.startsWith('tel')) return;
+        e.preventDefault();
+        window.triggerFlip(href);
+    });
+})();
+</script>
+</body>
+</html>
