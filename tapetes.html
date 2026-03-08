@@ -660,52 +660,27 @@
             body { cursor: auto; }
             .cursor, .cursor-ring { display: none; }
 
-            .page-header { min-height: auto; padding: 30px 16px 20px; }
+            .page-header { padding: 40px 20px; min-height: 300px; }
+            .band-inner { padding: 22px 130px; min-height: 110px; }
+            .band-img-left, .band-img-right { height: 120px; max-width: 130px; }
+            .page-title { font-size: 2.6rem; }
 
-            .band-inner { padding: 20px 110px; min-height: 100px; }
+            nav { padding: 10px 12px; justify-content: center; flex-wrap: wrap; gap: 6px; }
+            nav a { padding: 8px 16px; font-size: 0.7rem; white-space: nowrap; }
 
-            .band-img-left { left: -10px; height: 200px; max-width: 120px; }
+            .produtos { padding: 50px 16px 60px; }
+            .cards { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+            .card-img-wrap { height: 200px; }
+            .card-body { padding: 14px; }
+            .card-body h3 { font-size: 0.95rem; }
+            .card-desc { font-size: 0.78rem; }
+            .preco-atual { font-size: 1rem; }
+            .btn-comprar { padding: 8px 12px; font-size: 0.7rem; }
 
-            .band-img-right { height: 140px; max-width: 100px; bottom: -60px; right: 0; }
-
-            .welcome-title { font-size: clamp(2.8rem, 10vw, 4.5rem); }
-
-            .page-title { font-size: clamp(1.2rem, 4vw, 1.8rem); }
-
-            .header-sub { font-size: 0.8rem; }
-            .header-top-space { padding-bottom: 12px; }
-
-            nav { padding: 8px 10px; justify-content: flex-start; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; flex-wrap: nowrap; gap: 6px; }
-            nav::-webkit-scrollbar { display: none; }
-            nav a { padding: 8px 14px; font-size: 0.68rem; white-space: nowrap; flex-shrink: 0; }
-
-            .produtos { padding: 50px 14px 60px; }
-            .filtros { gap: 6px; margin-bottom: 36px; }
-            .filtro-btn { padding: 7px 14px; font-size: 0.72rem; }
-
-            .cards { grid-template-columns: repeat(2, 1fr); gap: 12px; }
-            .card-img-wrap { height: 170px; }
-            .card-body { padding: 12px; }
-            .card-body h3 { font-size: 0.9rem; }
-            .card-desc { font-size: 0.75rem; margin-bottom: 12px; }
-            .preco-atual { font-size: 0.95rem; }
-            .btn-comprar { padding: 8px 10px; font-size: 0.68rem; gap: 4px; }
-
-            .book-nav { padding: 36px 16px 28px; gap: 12px; flex-wrap: wrap; justify-content: center; }
-            .book-nav-btn { padding: 10px 16px; font-size: 0.68rem; }
-            .page-num { font-size: 1.2rem; }
-
-            .whatsapp { bottom: 16px; right: 16px; padding: 11px 14px; font-size: 0.78rem; }
-            .scroll-top { bottom: 68px; right: 16px; width: 40px; height: 40px; }
-        }
-
-        @media (max-width: 420px) {
-            .band-inner { padding: 18px 95px; }
-            .band-img-left { height: 160px; max-width: 95px; }
-            .band-img-right { height: 110px; max-width: 80px; bottom: -50px; }
-            .welcome-title { font-size: clamp(2.2rem, 9vw, 3.5rem); }
-            .cards { grid-template-columns: 1fr 1fr; gap: 10px; }
-            .card-img-wrap { height: 150px; }
+            .book-nav { padding: 40px 20px 30px; gap: 16px; flex-wrap: wrap; }
+            .book-nav-btn { padding: 10px 18px; font-size: 0.7rem; }
+            .whatsapp { bottom: 16px; right: 16px; padding: 12px 16px; font-size: 0.8rem; }
+            .scroll-top { bottom: 70px; right: 16px; }
         }
     </style>
 </head>
@@ -1027,4 +1002,3 @@ sb.addEventListener('click', function() { window.scrollTo({ top: 0, behavior: 's
 </script>
 </body>
 </html>
-
