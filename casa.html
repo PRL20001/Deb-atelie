@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Casa — Deb/Ateliê</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Jost:wght@300;400;500;600&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --cream: #FBF9F0;
+            --yellow-stripe: #F5F0C0;
+            --white-stripe: #FFFFFF;
+            --blue: #2B5EA7;
+            --blue-deep: #1A3F75;
+            --blue-light: #5B8ED4;
+            --gold: #C4964A;
+            --lemon: #E8C840;
+            --sage: #5A7A4A;
+            --ink: #1C1C1C;
+            --brown-light: #7A6A55;
+            --paper: #FAFAF5;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Jost', sans-serif;
+            background: var(--cream);
+            color: var(--ink);
+            overflow-x: hidden;
+            cursor: none;
+        }
+
+        /* ══ CURSOR ══ */
+        .cursor {
+            position: fixed;
+            width: 12px; height: 12px;
+            background: var(--blue);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 99999;
+            transform: translate(-50%, -50%);
+            transition: width 0.3s ease, height 0.3s ease;
+            mix-blend-mode: multiply;
+        }
+        .cursor-ring {
+            position: fixed;
+            width: 36px; height: 36px;
+            border: 1.5px solid var(--blue);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 99998;
+            transform: translate(-50%, -50%);
+            transition: transform 0.15s ease, opacity 0.3s ease;
+            opacity: 0.4;
+        }
+
+        /* ══ GRAIN ══ */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 9998;
+            opacity: 0.35;
+        }
+
+        /* ══ PAGE HEADER — LISTRAS VERTICAIS FINAS ══ */
+        .page-header {
+            position: relative;
+            overflow: hidden;
+            background: var(--yellow-stripe);
+            padding: 70px 40px 60px;
+            text-align: center;
+            min-height: 360px;
+        }
+
+        /* Listras verticais finas geradas via pseudo-elemento */
+        .page-header::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(
+                90deg,
+                transparent 0px,
+                transparent 38px,
+                rgba(255,255,255,0.55) 38px,
+                rgba(255,255,255,0.55) 39px
+            );
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* ── Imagens de enfeite nos cantos ── */
+        .corner-img {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            object-fit: contain;
+            pointer-events: none;
+            z-index: 3;
+            display: block;
+        }
+        .corner-img.tl { top: 0;    left: 0; }
+        .corner-img.tr { top: 0;    right: 0; }
+        .corner-img.bl { bottom: 0; left: 0; }
+        .corner-img.br { bottom: 0; right: 0; }
+
+        @media (max-width: 768px) {
+            .corner-img { width: 110px; height: 110px; }
+        }
+
+
+        .header-content {
+            position: relative;
+            z-index: 5;
+            animation: fadeUp 0.9s ease both;
+        }
+
+        /* Imagens dos cantos também acima das listras */
+        .corner-img { z-index: 4; }
+
+        .btn-voltar {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: rgba(44,94,167,0.65);
+            font-size: 0.72rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-bottom: 32px;
+            transition: all 0.3s;
+            padding: 8px 0;
+        }
+        .btn-voltar:hover { color: var(--blue); gap: 12px; }
+        .btn-voltar-arrow {
+            width: 28px; height: 1px;
+            background: currentColor;
+            position: relative;
+            transition: width 0.3s;
+        }
+        .btn-voltar-arrow::before {
+            content: '';
+            position: absolute;
+            left: 0; top: -3px;
+            width: 7px; height: 7px;
+            border-left: 1px solid currentColor;
+            border-bottom: 1px solid currentColor;
+            transform: rotate(45deg);
+        }
+        .btn-voltar:hover .btn-voltar-arrow { width: 36px; }
+
+        .header-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.65rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: rgba(44,94,167,0.5);
+            margin-bottom: 14px;
+            font-weight: 600;
+        }
+        .eyebrow-dash { width: 24px; height: 1px; background: rgba(44,94,167,0.3); }
+
+        .page-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3rem, 9vw, 5.5rem);
+            font-weight: 700;
+            color: var(--ink);
+            line-height: 1;
+            margin-bottom: 10px;
+            letter-spacing: -0.01em;
+        }
+        .page-title em {
+            font-style: italic;
+            font-weight: 400;
+            color: var(--blue);
+        }
+
+        .header-sub {
+            font-family: 'IM Fell English', serif;
+            font-style: italic;
+            font-size: 1rem;
+            color: rgba(28,28,28,0.45);
+            margin-top: 10px;
+        }
+
+        /* Linha decorativa azul e dourada */
+        .header-rule {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 28px;
+        }
+        .rule-line { width: 60px; height: 1px; background: rgba(44,94,167,0.25); }
+        .rule-diamond {
+            width: 6px; height: 6px;
+            background: var(--gold);
+            transform: rotate(45deg);
+            opacity: 0.7;
+        }
+
+        /* ══ NAV ══ */
+        nav {
+            width: 100%;
+            background: var(--paper);
+            border-bottom: 1px solid rgba(44,94,167,0.1);
+            padding: 12px 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+        }
+        nav a {
+            text-decoration: none;
+            color: var(--brown-light);
+            font-weight: 500;
+            font-size: 0.75rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            padding: 9px 20px;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            border: 1.5px solid transparent;
+        }
+        nav a:hover {
+            color: var(--ink);
+            border-color: rgba(44,94,167,0.2);
+            background: white;
+        }
+        nav a.ativo {
+            background: var(--blue);
+            color: white;
+            border-color: var(--blue);
+        }
+
+        /* ══ PRODUTOS ══ */
+        .produtos {
+            padding: 70px 40px 80px;
+            max-width: 1140px;
+            margin: 0 auto;
+        }
+
+        /* Filtros */
+        .filtros {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 56px;
+        }
+        .filtro-btn {
+            padding: 8px 20px;
+            border-radius: 30px;
+            border: 1.5px solid rgba(44,94,167,0.18);
+            background: transparent;
+            color: var(--brown-light);
+            font-family: 'Jost', sans-serif;
+            font-size: 0.78rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.25s;
+            font-weight: 500;
+        }
+        .filtro-btn:hover {
+            border-color: var(--blue);
+            color: var(--blue);
+            background: rgba(44,94,167,0.05);
+        }
+        .filtro-btn.ativo {
+            background: var(--blue);
+            color: white;
+            border-color: var(--blue);
+            box-shadow: 0 4px 14px rgba(44,94,167,0.25);
+        }
+
+        /* Grid de cards */
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+
+        @media (max-width: 900px) {
+            .cards { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        .card {
+            background: white;
+            border-radius: 4px;
+            overflow: hidden;
+            box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+            transition: all 0.35s ease;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+        .card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            transition: border-color 0.35s;
+            pointer-events: none;
+        }
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.10);
+        }
+        .card:hover::after {
+            border-color: rgba(44,94,167,0.2);
+        }
+
+        .card-img-wrap {
+            position: relative;
+            overflow: hidden;
+            height: 280px;
+        }
+        .card-img-wrap img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+            display: block;
+        }
+        .card:hover .card-img-wrap img { transform: scale(1.07); }
+
+        .card-img-wrap::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(28,28,28,0.3), transparent 50%);
+            opacity: 0;
+            transition: opacity 0.35s;
+        }
+        .card:hover .card-img-wrap::after { opacity: 1; }
+
+        .card-tag {
+            position: absolute;
+            top: 16px; left: 16px;
+            background: var(--blue-deep);
+            color: rgba(255,255,255,0.9);
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            padding: 5px 12px;
+            z-index: 2;
+        }
+
+        .card-body {
+            padding: 24px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            border-top: 1px solid rgba(44,94,167,0.07);
+        }
+
+        .card-body h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.15rem;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: var(--ink);
+            line-height: 1.3;
+        }
+
+        .card-desc {
+            font-size: 0.85rem;
+            color: var(--brown-light);
+            line-height: 1.7;
+            margin-bottom: 20px;
+            flex: 1;
+            font-weight: 300;
+        }
+
+        .card-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-top: auto;
+            padding-top: 16px;
+            border-top: 1px solid rgba(44,94,167,0.07);
+        }
+
+        .preco {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+        .preco-atual {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: var(--ink);
+        }
+        .preco-antigo {
+            font-size: 0.78rem;
+            color: var(--brown-light);
+            text-decoration: line-through;
+            font-weight: 300;
+            opacity: 0.6;
+        }
+
+        .btn-comprar {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 10px 20px;
+            background: var(--blue);
+            color: white;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.78rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            transition: all 0.25s;
+            white-space: nowrap;
+            border: none;
+            cursor: pointer;
+            font-family: 'Jost', sans-serif;
+            box-shadow: 0 4px 12px rgba(44,94,167,0.25);
+        }
+        .btn-comprar:hover {
+            background: var(--blue-deep);
+            box-shadow: 0 6px 18px rgba(44,94,167,0.35);
+            transform: translateY(-1px);
+        }
+
+        /* ══ BOOK NAV ══ */
+        .book-nav {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 28px;
+            padding: 60px 40px 40px;
+            border-top: 1px solid rgba(44,94,167,0.1);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .book-nav-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: var(--ink);
+            font-size: 0.75rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            font-weight: 600;
+            padding: 12px 24px;
+            border: 1.5px solid rgba(44,28,28,0.15);
+            border-radius: 30px;
+            transition: all 0.3s;
+            background: white;
+        }
+        .book-nav-btn:hover {
+            background: var(--blue);
+            color: white;
+            border-color: var(--blue);
+            box-shadow: 0 6px 20px rgba(44,94,167,0.2);
+        }
+        .book-nav-btn.prev:hover { transform: translateX(-3px); }
+        .book-nav-btn.next:hover { transform: translateX(3px); }
+
+        .book-page-indicator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'IM Fell English', serif;
+            font-style: italic;
+            font-size: 0.9rem;
+            color: var(--brown-light);
+        }
+        .page-num {
+            font-family: 'Playfair Display', serif;
+            font-style: normal;
+            font-size: 1.4rem;
+            color: var(--blue);
+            font-weight: 500;
+        }
+        .page-sep { color: rgba(107,76,66,0.25); }
+
+        /* ══ FOOTER ══ */
+        footer {
+            background: var(--ink);
+            padding: 50px 40px 36px;
+            text-align: center;
+            position: relative;
+        }
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 20%; right: 20%;
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--blue-light), transparent);
+        }
+        .footer-ornament {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 22px;
+            opacity: 0.3;
+        }
+        .orn-line { width: 50px; height: 1px; background: var(--blue-light); }
+        .orn-diamond { width: 6px; height: 6px; background: var(--gold); transform: rotate(45deg); }
+        .footer-sig {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.5rem;
+            color: var(--blue-light);
+            margin-bottom: 12px;
+        }
+        .footer-sub {
+            font-size: 0.78rem;
+            letter-spacing: 0.08em;
+            color: rgba(255,255,255,0.2);
+            line-height: 2;
+            font-weight: 300;
+        }
+
+        /* ══ WHATSAPP ══ */
+        .whatsapp {
+            position: fixed;
+            bottom: 26px; right: 26px;
+            background: #25D366;
+            color: white;
+            border-radius: 50px;
+            padding: 14px 22px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.85rem;
+            box-shadow: 0 6px 24px rgba(37,211,102,0.4);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+            z-index: 1000;
+        }
+        .whatsapp:hover { transform: scale(1.05); }
+
+        /* ══ SCROLL TOP ══ */
+        .scroll-top {
+            position: fixed;
+            bottom: 82px; right: 28px;
+            width: 44px; height: 44px;
+            border-radius: 50%;
+            background: var(--ink);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.15);
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+            transition: all 0.3s;
+            z-index: 999;
+        }
+        .scroll-top:hover { background: var(--blue); border-color: var(--blue); }
+
+        /* ══ PAGE FLIP CANVAS ══ */
+        #pageFlipCanvas {
+            display: none;
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 99999;
+            pointer-events: none;
+        }
+
+        /* ══ ANIMAÇÕES ══ */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ══ RESPONSIVE ══ */
+        @media (max-width: 768px) {
+            body { cursor: auto; }
+            .cursor, .cursor-ring { display: none; }
+
+            .page-header { padding: 50px 20px 44px; min-height: 280px; }
+            .page-title { font-size: 2.8rem; }
+
+            .corner-lemons { width: 130px; height: 130px; }
+            .corner-vases { width: 100px; height: 130px; }
+            .corner-cutlery { width: 90px; height: 110px; }
+
+            nav {
+                padding: 10px 12px;
+                justify-content: center;
+                flex-wrap: wrap;
+                overflow-x: visible;
+                gap: 6px;
+            }
+            nav a {
+                white-space: nowrap;
+                flex-shrink: 0;
+                padding: 8px 16px;
+                font-size: 0.7rem;
+            }
+
+            .produtos { padding: 50px 16px 60px; }
+            .cards { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+            .card-img-wrap { height: 200px; }
+            .card-body { padding: 14px; }
+            .card-body h3 { font-size: 0.95rem; }
+            .card-desc { font-size: 0.78rem; }
+            .preco-atual { font-size: 1rem; }
+            .btn-comprar { padding: 8px 12px; font-size: 0.7rem; }
+
+            .book-nav { padding: 40px 20px 30px; gap: 16px; flex-wrap: wrap; }
+            .book-nav-btn { padding: 10px 18px; font-size: 0.7rem; }
+
+            .whatsapp { bottom: 16px; right: 16px; padding: 12px 16px; font-size: 0.8rem; }
+            .scroll-top { bottom: 70px; right: 16px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- ══ HEADER ══ -->
+<header class="page-header">
+
+    <!-- CANTO SUPERIOR ESQUERDO → coloque sua imagem em: limoes.png -->
+    <img src="vasos.png" alt="" class="corner-img tl">
+
+    <!-- CANTO SUPERIOR DIREITO → coloque sua imagem em: vasos.png -->
+    <img src="talheres.png" alt="" class="corner-img tr">
+
+    <!-- CANTO INFERIOR ESQUERDO → coloque sua imagem em: talheres.png -->
+    <img src="deco.png" alt="" class="corner-img bl">
+
+    <div class="header-content">
+        <a href="index.html" class="btn-voltar">
+            <span class="btn-voltar-arrow"></span>
+            Voltar ao início
+        </a>
+        <div class="header-eyebrow">
+            <span class="eyebrow-dash"></span>
+            capítulo três
+            <span class="eyebrow-dash"></span>
+        </div>
+        <h1 class="page-title"><em>Ca</em>sa</h1>
+        <p class="header-sub">peças feitas à mão para o seu lar</p>
+        <div class="header-rule">
+            <span class="rule-line"></span>
+            <span class="rule-diamond"></span>
+            <span class="rule-line"></span>
+        </div>
+    </div>
+</header>
+
+<!-- ══ NAV ══ -->
+<nav>
+    <a href="index.html">Início</a>
+    <a href="tapetes.html">Tapetes</a>
+    <a href="casa.html" class="ativo">Casa</a>
+    <a href="bebes.html">Bebês</a>
+    <a href="bolsa.html">Bolsas</a>
+</nav>
+
+<!-- ══ PRODUTOS ══ -->
+<section class="produtos">
+
+    <div class="filtros">
+        <button class="filtro-btn ativo" data-filtro="todos">Todos</button>
+        <button class="filtro-btn" data-filtro="almofada">Almofadas</button>
+        <button class="filtro-btn" data-filtro="pano">Panos de Prato</button>
+        <button class="filtro-btn" data-filtro="jogo">Jogo Americano</button>
+        <button class="filtro-btn" data-filtro="vaso">Vasos & Enfeites</button>
+    </div>
+
+    <div class="cards" id="cardsContainer">
+
+        <div class="card" data-tipo="almofada">
+            <div class="card-img-wrap">
+                <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&h=600&fit=crop" alt="Almofada bordada" loading="lazy">
+                <span class="card-tag">Almofada</span>
+            </div>
+            <div class="card-body">
+                <h3>Almofada Bordada Floral</h3>
+                <p class="card-desc">Bordado à mão com motivos florais delicados. Capa com zíper, lavável e resistente.</p>
+                <div class="card-footer">
+                    <div class="preco">
+                        <span class="preco-atual">R$ 79,90</span>
+                        <span class="preco-antigo">R$ 99,90</span>
+                    </div>
+                    <a class="btn-comprar" href="https://wa.me/5599999999999?text=Olá! Tenho interesse na Almofada Bordada Floral" target="_blank">💬 Pedir</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" data-tipo="pano">
+            <div class="card-img-wrap">
+                <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=600&h=600&fit=crop" alt="Pano de prato" loading="lazy">
+                <span class="card-tag">Pano de Prato</span>
+            </div>
+            <div class="card-body">
+                <h3>Pano de Prato Limões</h3>
+                <p class="card-desc">Estampado à mão com motivo de limões sicilianos. Algodão 100% de alta absorção.</p>
+                <div class="card-footer">
+                    <div class="preco">
+                        <span class="preco-atual">R$ 34,90</span>
+                    </div>
+                    <a class="btn-comprar" href="https://wa.me/5599999999999?text=Olá! Tenho interesse no Pano de Prato Limões" target="_blank">💬 Pedir</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" data-tipo="jogo">
+            <div class="card-img-wrap">
+                <img src="https://images.unsplash.com/photo-1606757389723-23c4c7c64e44?w=600&h=600&fit=crop" alt="Jogo americano" loading="lazy">
+                <span class="card-tag">Jogo Americano</span>
+            </div>
+            <div class="card-body">
+                <h3>Jogo Americano Crochê Azul</h3>
+                <p class="card-desc">Conjunto de 4 peças em crochê artesanal. Proteção térmica e estética incrível para sua mesa.</p>
+                <div class="card-footer">
+                    <div class="preco">
+                        <span class="preco-atual">R$ 89,90</span>
+                        <span class="preco-antigo">R$ 110,00</span>
+                    </div>
+                    <a class="btn-comprar" href="https://wa.me/5599999999999?text=Olá! Tenho interesse no Jogo Americano Crochê Azul" target="_blank">💬 Pedir</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" data-tipo="vaso">
+            <div class="card-img-wrap">
+                <img src="https://images.unsplash.com/photo-1485955900006-10f4d324d411?w=600&h=600&fit=crop" alt="Vaso decorativo" loading="lazy">
+                <span class="card-tag">Vaso & Enfeite</span>
+            </div>
+            <div class="card-body">
+                <h3>Vaso Pintado à Mão</h3>
+                <p class="card-desc">Vaso de cerâmica com pintura artesanal inspirada na azulejaria portuguesa. Peça única.</p>
+                <div class="card-footer">
+                    <div class="preco">
+                        <span class="preco-atual">R$ 119,90</span>
+                    </div>
+                    <a class="btn-comprar" href="https://wa.me/5599999999999?text=Olá! Tenho interesse no Vaso Pintado à Mão" target="_blank">💬 Pedir</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" data-tipo="almofada">
+            <div class="card-img-wrap">
+                <img src="https://images.unsplash.com/photo-1540574163026-643ea20ade25?w=600&h=600&fit=crop" alt="Almofada listrada" loading="lazy">
+                <span class="card-tag">Almofada</span>
+            </div>
+            <div class="card-body">
+                <h3>Almofada Listrada Azul</h3>
+                <p class="card-desc">Tecido artesanal com listras delicadas. Conforto e estilo para sofá ou cama.</p>
+                <div class="card-footer">
+                    <div class="preco">
+                        <span class="preco-atual">R$ 69,90</span>
+                        <span class="preco-antigo">R$ 85,00</span>
+                    </div>
+                    <a class="btn-comprar" href="https://wa.me/5599999999999?text=Olá! Tenho interesse na Almofada Listrada Azul" target="_blank">💬 Pedir</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" data-tipo="pano">
+            <div class="card-img-wrap">
+                <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=600&fit=crop" alt="Kit panos de prato" loading="lazy">
+                <span class="card-tag">Pano de Prato</span>
+            </div>
+            <div class="card-body">
+                <h3>Kit 3 Panos — Coleção Cozinha</h3>
+                <p class="card-desc">Trio coordenado com motivos de ervas aromáticas. Perfeito para presentear.</p>
+                <div class="card-footer">
+                    <div class="preco">
+                        <span class="preco-atual">R$ 89,90</span>
+                    </div>
+                    <a class="btn-comprar" href="https://wa.me/5599999999999?text=Olá! Tenho interesse no Kit 3 Panos Coleção Cozinha" target="_blank">💬 Pedir</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- ══ NAVEGAÇÃO LIVRO ══ -->
+<div class="book-nav">
+    <a href="index.html" class="book-nav-btn prev">‹ Sumário</a>
+    <div class="book-page-indicator">
+        pág. <span class="page-num">3</span>
+        <span class="page-sep">/</span>
+        6
+    </div>
+    <a href="bebes.html" class="book-nav-btn next">Bebês ›</a>
+</div>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+    <div class="footer-ornament">
+        <span class="orn-line"></span>
+        <span class="orn-diamond"></span>
+        <span class="orn-line"></span>
+    </div>
+    <p class="footer-sig">Com carinho,</p>
+    <p class="footer-sub">Deb/Ateliê © 2025<br>Cada costura feita com atenção, cada detalhe pensado em você</p>
+</footer>
+
+<a class="whatsapp" href="https://wa.me/5599999999999?text=Olá! Gostaria de saber mais sobre os produtos de casa da Deb/Ateliê" target="_blank">
+    💬 Fale conosco
+</a>
+
+<button class="scroll-top" id="scrollTop" aria-label="Voltar ao topo">↑</button>
+
+<canvas id="pageFlipCanvas"></canvas>
+
+<script>
+/* ══ CURSOR — desktop only ══ */
+var isTouchDevice = ('ontouchstart' in window) || navigator.maxTouchPoints > 0;
+var cur = document.getElementById('cursor');
+var ring = document.getElementById('cursorRing');
+if (isTouchDevice) {
+    cur.style.display = 'none';
+    ring.style.display = 'none';
+    document.body.style.cursor = 'auto';
+} else {
+    document.addEventListener('mousemove', function(e) {
+        cur.style.left = e.clientX + 'px';
+        cur.style.top  = e.clientY + 'px';
+        ring.style.left = e.clientX + 'px';
+        ring.style.top  = e.clientY + 'px';
+    });
+    document.querySelectorAll('a, button').forEach(function(el) {
+        el.addEventListener('mouseenter', function() {
+            cur.style.width = '20px'; cur.style.height = '20px';
+            ring.style.opacity = '0.8';
+        });
+        el.addEventListener('mouseleave', function() {
+            cur.style.width = '12px'; cur.style.height = '12px';
+            ring.style.opacity = '0.4';
+        });
+    });
+}
+
+/* ══ FILTROS ══ */
+document.querySelectorAll('.filtro-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+        document.querySelectorAll('.filtro-btn').forEach(function(b){ b.classList.remove('ativo'); });
+        this.classList.add('ativo');
+        var filtro = this.getAttribute('data-filtro');
+        document.querySelectorAll('.card').forEach(function(card) {
+            card.style.display = (filtro === 'todos' || card.getAttribute('data-tipo') === filtro) ? 'flex' : 'none';
+        });
+    });
+});
+
+/* ══ SCROLL TOP ══ */
+var sb = document.getElementById('scrollTop');
+window.addEventListener('scroll', function() {
+    sb.style.display = window.scrollY > 300 ? 'flex' : 'none';
+});
+sb.addEventListener('click', function() { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+
+/* ══ VIRAR PÁGINA — Canvas ══ */
+(function() {
+    var canvas = document.getElementById('pageFlipCanvas');
+    var ctx = canvas.getContext('2d');
+    var targetUrl = null;
+    var animStart = null;
+    var DURATION = 900;
+    var raf = null;
+
+    function resize() {
+        canvas.width  = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    function drawLines(ctx, x, y, w, h, alpha) {
+        ctx.save();
+        ctx.globalAlpha = alpha * 0.12;
+        ctx.strokeStyle = '#2B5EA7';
+        ctx.lineWidth = 1;
+        var step = 28;
+        for (var ly = y + step; ly < y + h; ly += step) {
+            ctx.beginPath(); ctx.moveTo(x, ly); ctx.lineTo(x + w, ly); ctx.stroke();
+        }
+        ctx.restore();
+    }
+
+    function ease(t) { return t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t+2,3)/2; }
+
+    function drawFlip(progress) {
+        var W = canvas.width, H = canvas.height;
+        ctx.clearRect(0, 0, W, H);
+        var p = ease(progress);
+
+        var bgG = ctx.createLinearGradient(0, 0, W, 0);
+        bgG.addColorStop(0, '#F5F0C0');
+        bgG.addColorStop(0.5, '#FAFAF5');
+        bgG.addColorStop(1, '#FBF9F0');
+        ctx.fillStyle = bgG;
+        ctx.fillRect(0, 0, W, H);
+        drawLines(ctx, 0, 0, W, H, 0.5);
+
+        var shadowAlpha = Math.sin(p * Math.PI) * 0.45;
+        ctx.fillStyle = 'rgba(0,0,0,' + shadowAlpha + ')';
+        ctx.fillRect(0, 0, W, H);
+
+        var newReveal = Math.max(0, (p - 0.35) / 0.65);
+        if (newReveal > 0) {
+            var nw = W * newReveal;
+            ctx.save();
+            ctx.beginPath(); ctx.rect(0, 0, nw, H); ctx.clip();
+            var ng = ctx.createLinearGradient(0, 0, nw, 0);
+            ng.addColorStop(0, '#FAFAF5'); ng.addColorStop(0.6, '#FBF9F0'); ng.addColorStop(1, '#F5F0C0');
+            ctx.fillStyle = ng; ctx.fillRect(0, 0, nw, H);
+            drawLines(ctx, 0, 0, nw, H, newReveal);
+            ctx.restore();
+        }
+
+        var foldProgress = Math.min(1, p / 0.75);
+        var pageW = (W / 2) * (1 - foldProgress);
+        if (pageW > 1) {
+            var skewFactor = foldProgress * 0.35;
+            var topX    = W / 2 - pageW;
+            var bottomX = W / 2 - pageW * (1 - skewFactor);
+            ctx.save();
+            ctx.beginPath();
+            ctx.moveTo(W/2,0); ctx.lineTo(W/2,H); ctx.lineTo(bottomX,H); ctx.lineTo(topX,0);
+            ctx.closePath(); ctx.clip();
+            var pg = ctx.createLinearGradient(topX, 0, W/2, 0);
+            pg.addColorStop(0,'#e8f0f8'); pg.addColorStop(0.5,'#f5f8fc'); pg.addColorStop(1,'#fafcff');
+            ctx.fillStyle = pg;
+            ctx.beginPath();
+            ctx.moveTo(W/2,0); ctx.lineTo(W/2,H); ctx.lineTo(bottomX,H); ctx.lineTo(topX,0);
+            ctx.closePath(); ctx.fill();
+            ctx.restore();
+        }
+
+        var spineAlpha = Math.sin(p * Math.PI) * 0.5;
+        var spineG = ctx.createLinearGradient(W/2-28,0,W/2+28,0);
+        spineG.addColorStop(0,'rgba(0,0,0,0)'); spineG.addColorStop(0.4,'rgba(0,0,0,'+spineAlpha+')');
+        spineG.addColorStop(0.6,'rgba(0,0,0,'+spineAlpha+')'); spineG.addColorStop(1,'rgba(0,0,0,0)');
+        ctx.fillStyle = spineG; ctx.fillRect(W/2-28,0,56,H);
+    }
+
+    function animate(ts) {
+        if (!animStart) animStart = ts;
+        var progress = Math.min((ts - animStart) / DURATION, 1);
+        drawFlip(progress);
+        if (progress < 1) {
+            raf = requestAnimationFrame(animate);
+        } else {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            canvas.style.display = 'none';
+            if (targetUrl) window.location.href = targetUrl;
+        }
+    }
+
+    window.triggerFlip = function(url) {
+        targetUrl = url; animStart = null;
+        canvas.style.display = 'block';
+        if (raf) cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(animate);
+    };
+
+    document.addEventListener('click', function(e) {
+        var a = e.target.closest('a[href]');
+        if (!a) return;
+        var href = a.getAttribute('href');
+        if (!href || href.startsWith('#') || href.startsWith('http') || href.startsWith('mailto') || href.startsWith('tel')) return;
+        e.preventDefault();
+        window.triggerFlip(href);
+    });
+})();
+</script>
+</body>
+</html>
