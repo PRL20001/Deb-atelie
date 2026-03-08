@@ -30,7 +30,6 @@
             cursor: none;
         }
 
-        /* ══ CURSOR PERSONALIZADO ══ */
         .cursor {
             position: fixed;
             width: 12px; height: 12px;
@@ -54,7 +53,6 @@
             opacity: 0.5;
         }
 
-        /* ══ GRAIN OVERLAY ══ */
         body::before {
             content: '';
             position: fixed;
@@ -65,7 +63,6 @@
             opacity: 0.4;
         }
 
-        /* ══ HERO ══ */
         .hero {
             position: relative;
             width: 100%;
@@ -78,11 +75,7 @@
             background: var(--cream);
         }
 
-        .hero-bg {
-            position: absolute;
-            inset: 0;
-            overflow: hidden;
-        }
+        .hero-bg { position: absolute; inset: 0; overflow: hidden; }
 
         .stripe {
             position: absolute;
@@ -188,10 +181,7 @@
             opacity: 0;
             animation: fadeUp 1s ease 0.5s both;
         }
-        .brand-title em {
-            font-style: italic;
-            color: var(--rose);
-        }
+        .brand-title em { font-style: italic; color: var(--rose); }
 
         .brand-sub {
             font-family: 'IM Fell English', serif;
@@ -204,29 +194,7 @@
             animation: fadeUp 1s ease 0.7s both;
         }
 
-        .hero-scroll-hint {
-            position: absolute;
-            bottom: 36px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
-            color: var(--brown-light);
-            font-size: 0.65rem;
-            letter-spacing: 0.25em;
-            text-transform: uppercase;
-            opacity: 0;
-            animation: fadeUp 1s ease 1.2s both;
-        }
-        .scroll-line {
-            width: 1px; height: 40px;
-            background: linear-gradient(to bottom, var(--brown-light), transparent);
-            animation: scrollPulse 2s ease infinite;
-        }
-
-        /* ══ NAV RIBBON ══ */
+        /* ══ NAV ══ */
         nav {
             width: 100%;
             background: var(--ink);
@@ -250,7 +218,6 @@
             text-transform: uppercase;
             padding: 11px 24px;
             transition: all 0.3s ease;
-            position: relative;
             display: flex;
             align-items: center;
             gap: 8px;
@@ -265,9 +232,6 @@
             box-shadow: 0 6px 18px rgba(201,123,138,0.45);
             border-color: var(--rose);
         }
-        nav a::after { display: none; }
-        .nav-dot { display: none; }
-        .nav-sep { display: none; }
 
         /* ══ PREFÁCIO ══ */
         .prefacio {
@@ -276,16 +240,13 @@
             overflow: hidden;
             padding: 90px 60px;
         }
-
         .prefacio::before {
             content: '';
-            position: absolute;
-            inset: 0;
+            position: absolute; inset: 0;
             background:
                 repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(255,255,255,0.04) 39px, rgba(255,255,255,0.04) 40px),
                 repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(255,255,255,0.04) 39px, rgba(255,255,255,0.04) 40px);
         }
-
         .prefacio-bg-text {
             position: absolute;
             bottom: -30px; right: -20px;
@@ -297,7 +258,6 @@
             pointer-events: none;
             user-select: none;
         }
-
         .prefacio-inner {
             max-width: 1000px;
             margin: 0 auto;
@@ -308,24 +268,10 @@
             position: relative;
             z-index: 1;
         }
-
         .pref-img-wrap { position: relative; }
-        .pref-img-outer {
-            position: relative;
-            padding: 16px;
-        }
-        .pref-img-outer::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border: 1px solid rgba(255,255,255,0.25);
-        }
-        .pref-img-outer::after {
-            content: '';
-            position: absolute;
-            inset: 8px;
-            border: 1px solid rgba(255,255,255,0.12);
-        }
+        .pref-img-outer { position: relative; padding: 16px; }
+        .pref-img-outer::before { content: ''; position: absolute; inset: 0; border: 1px solid rgba(255,255,255,0.25); }
+        .pref-img-outer::after  { content: ''; position: absolute; inset: 8px; border: 1px solid rgba(255,255,255,0.12); }
         .pref-img-outer img {
             width: 100%;
             aspect-ratio: 4/5;
@@ -348,50 +294,22 @@
         .pref-corner-br { bottom: -1px; right: -1px; }
         .pref-corner-br::before { width: 20px; height: 2px; bottom: 0; right: 0; }
         .pref-corner-br::after  { width: 2px; height: 20px; bottom: 0; right: 0; }
-
         .pref-txt { color: white; }
         .pref-label {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 0.65rem;
-            letter-spacing: 0.3em;
-            text-transform: uppercase;
-            color: rgba(255,255,255,0.5);
-            margin-bottom: 20px;
-            font-weight: 500;
+            display: inline-flex; align-items: center; gap: 10px;
+            font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase;
+            color: rgba(255,255,255,0.5); margin-bottom: 20px; font-weight: 500;
         }
         .pref-label-dash { width: 28px; height: 1px; background: rgba(255,255,255,0.4); }
-
         .pref-txt h2 {
             font-family: 'Playfair Display', serif;
-            font-size: 3rem;
-            font-weight: 400;
-            color: white;
-            line-height: 1.15;
-            margin-bottom: 28px;
+            font-size: 3rem; font-weight: 400; color: white;
+            line-height: 1.15; margin-bottom: 28px;
         }
         .pref-txt h2 em { font-style: italic; color: var(--blush); }
-
-        .pref-txt p {
-            font-size: 1.25rem;
-            line-height: 2;
-            color: #1a1a1a;
-            font-weight: 400;
-        }
-
-        .pref-divider {
-            width: 50px; height: 1px;
-            background: rgba(255,255,255,0.25);
-            margin: 28px 0;
-        }
-
-        .pref-ps {
-            font-family: 'IM Fell English', serif;
-            font-style: italic;
-            font-size: 1.15rem;
-            color: #1a1a1a;
-        }
+        .pref-txt p { font-size: 1.25rem; line-height: 2; color: #1a1a1a; font-weight: 400; }
+        .pref-divider { width: 50px; height: 1px; background: rgba(255,255,255,0.25); margin: 28px 0; }
+        .pref-ps { font-family: 'IM Fell English', serif; font-style: italic; font-size: 1.15rem; color: #1a1a1a; }
 
         /* ══ SUMÁRIO ══ */
         .sumario {
@@ -400,268 +318,122 @@
             position: relative;
             overflow: hidden;
         }
-
         .sumario::before {
             content: 'Sumário';
-            position: absolute;
-            top: 50%; left: 50%;
+            position: absolute; top: 50%; left: 50%;
             transform: translate(-50%, -50%);
             font-family: 'Playfair Display', serif;
-            font-size: 18rem;
-            font-weight: 700;
+            font-size: 18rem; font-weight: 700;
             color: rgba(0,0,0,0.025);
-            white-space: nowrap;
-            pointer-events: none;
-            user-select: none;
+            white-space: nowrap; pointer-events: none; user-select: none;
         }
-
-        .sumario-header {
-            text-align: center;
-            margin-bottom: 70px;
-            position: relative;
-            z-index: 1;
-        }
+        .sumario-header { text-align: center; margin-bottom: 70px; position: relative; z-index: 1; }
         .sumario-eyebrow {
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 0.65rem;
-            letter-spacing: 0.3em;
-            text-transform: uppercase;
-            color: var(--brown-light);
-            margin-bottom: 16px;
-            font-weight: 500;
+            display: inline-flex; align-items: center; gap: 12px;
+            font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase;
+            color: var(--brown-light); margin-bottom: 16px; font-weight: 500;
         }
         .sumario-eyebrow-dash { width: 28px; height: 1px; background: var(--brown-light); opacity: 0.5; }
-
         .sumario h2 {
             font-family: 'Playfair Display', serif;
-            font-size: 3.5rem;
-            font-weight: 400;
-            color: var(--ink);
-            line-height: 1.1;
-            margin-bottom: 8px;
+            font-size: 3.5rem; font-weight: 400; color: var(--ink);
+            line-height: 1.1; margin-bottom: 8px;
         }
         .sumario h2 em { font-style: italic; color: var(--rose); }
-
-        .sumario-sub {
-            font-family: 'IM Fell English', serif;
-            font-style: italic;
-            font-size: 1rem;
-            color: var(--brown-light);
-        }
-
-        .sumario-list {
-            max-width: 700px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 1;
-        }
-
+        .sumario-sub { font-family: 'IM Fell English', serif; font-style: italic; font-size: 1rem; color: var(--brown-light); }
+        .sumario-list { max-width: 700px; margin: 0 auto; position: relative; z-index: 1; }
         .sumario-item {
             display: grid;
             grid-template-columns: 1fr auto auto;
             align-items: center;
-            gap: 16px;
-            padding: 22px 0;
+            gap: 16px; padding: 22px 0;
             border-bottom: 1px solid rgba(107,76,66,0.1);
-            position: relative;
-            transition: all 0.3s ease;
+            position: relative; transition: all 0.3s ease;
         }
         .sumario-item:first-child { border-top: 1px solid rgba(107,76,66,0.1); }
-
         .sumario-item::before {
-            content: '';
-            position: absolute;
-            inset: 0;
+            content: ''; position: absolute; inset: 0;
             background: linear-gradient(to right, transparent, var(--blush), transparent);
-            opacity: 0;
-            transition: opacity 0.35s ease;
-            pointer-events: none;
+            opacity: 0; transition: opacity 0.35s ease; pointer-events: none;
         }
         .sumario-item:hover::before { opacity: 0.12; }
-
-        .sumario-item-left {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
+        .sumario-item-left { display: flex; align-items: center; gap: 20px; }
         .sumario-num {
-            font-family: 'Playfair Display', serif;
-            font-style: italic;
-            font-size: 0.85rem;
-            color: var(--rose);
-            min-width: 20px;
-            opacity: 0.7;
+            font-family: 'Playfair Display', serif; font-style: italic;
+            font-size: 0.85rem; color: var(--rose); min-width: 20px; opacity: 0.7;
         }
         .sumario-titulo {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.2rem;
-            color: var(--ink);
-            font-weight: 500;
-            transition: color 0.3s;
+            font-family: 'Playfair Display', serif; font-size: 1.2rem;
+            color: var(--ink); font-weight: 500; transition: color 0.3s;
         }
         .sumario-item:hover .sumario-titulo { color: var(--rose); }
-
         .sumario-dots {
-            flex: 1;
-            height: 1px;
-            background: repeating-linear-gradient(
-                to right,
-                var(--brown-light) 0, var(--brown-light) 3px,
-                transparent 3px, transparent 9px
-            );
-            opacity: 0.2;
-            align-self: center;
+            flex: 1; height: 1px;
+            background: repeating-linear-gradient(to right, var(--brown-light) 0, var(--brown-light) 3px, transparent 3px, transparent 9px);
+            opacity: 0.2; align-self: center;
         }
-
         .sumario-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 42px; height: 42px;
-            border-radius: 50%;
-            background: var(--sage);
-            color: white;
-            text-decoration: none;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            flex-shrink: 0;
-            font-family: 'Jost', sans-serif;
-            font-weight: 300;
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 42px; height: 42px; border-radius: 50%;
+            background: var(--sage); color: white; text-decoration: none;
+            font-size: 1rem; transition: all 0.3s ease; flex-shrink: 0;
+            font-family: 'Jost', sans-serif; font-weight: 300;
             box-shadow: 0 4px 12px rgba(138,155,122,0.3);
         }
-        .sumario-btn:hover {
-            background: var(--rose);
-            transform: scale(1.1);
-            box-shadow: 0 6px 18px rgba(201,123,138,0.35);
-        }
-
-        .sumario-pagina {
-            margin-top: 52px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0;
-        }
+        .sumario-btn:hover { background: var(--rose); transform: scale(1.1); box-shadow: 0 6px 18px rgba(201,123,138,0.35); }
+        .sumario-pagina { margin-top: 52px; display: flex; align-items: center; justify-content: center; }
         .pag-track {
-            display: flex;
-            align-items: center;
-            background: white;
-            border: 1px solid rgba(107,76,66,0.12);
-            border-radius: 40px;
-            padding: 10px 22px;
-            gap: 12px;
+            display: flex; align-items: center;
+            background: white; border: 1px solid rgba(107,76,66,0.12);
+            border-radius: 40px; padding: 10px 22px; gap: 12px;
             box-shadow: 0 2px 12px rgba(0,0,0,0.05);
         }
-        .pag-label {
-            font-family: 'IM Fell English', serif;
-            font-style: italic;
-            font-size: 0.85rem;
-            color: var(--brown-light);
-        }
-        .pag-atual {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.3rem;
-            color: var(--rose);
-            font-weight: 500;
-            min-width: 20px;
-            text-align: center;
-            transition: all 0.3s;
-        }
+        .pag-label { font-family: 'IM Fell English', serif; font-style: italic; font-size: 0.85rem; color: var(--brown-light); }
+        .pag-atual { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--rose); font-weight: 500; min-width: 20px; text-align: center; transition: all 0.3s; }
         .pag-sep { color: rgba(107,76,66,0.25); font-size: 1rem; }
         .pag-total { font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--brown-light); }
 
         /* ══ FOOTER ══ */
         footer {
-            background: var(--ink);
-            padding: 60px 40px 40px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
+            background: var(--ink); padding: 60px 40px 40px;
+            text-align: center; position: relative; overflow: hidden;
         }
         footer::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 20%; right: 20%;
-            height: 1px;
-            background: linear-gradient(to right, transparent, var(--rose), transparent);
+            content: ''; position: absolute; top: 0; left: 20%; right: 20%;
+            height: 1px; background: linear-gradient(to right, transparent, var(--rose), transparent);
         }
-
-        .footer-sig {
-            font-family: 'Playfair Display', serif;
-            font-style: italic;
-            font-size: 1.6rem;
-            color: var(--blush);
-            margin-bottom: 16px;
-        }
-        .footer-sub {
-            font-size: 0.8rem;
-            letter-spacing: 0.1em;
-            color: rgba(255,255,255,0.25);
-            line-height: 2;
-            font-weight: 300;
-        }
-
-        .footer-ornament {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            margin-bottom: 28px;
-            opacity: 0.3;
-        }
+        .footer-sig { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.6rem; color: var(--blush); margin-bottom: 16px; }
+        .footer-sub { font-size: 0.8rem; letter-spacing: 0.1em; color: rgba(255,255,255,0.25); line-height: 2; font-weight: 300; }
+        .footer-ornament { display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 28px; opacity: 0.3; }
         .orn-line { width: 50px; height: 1px; background: var(--blush); }
         .orn-diamond { width: 6px; height: 6px; background: var(--gold); transform: rotate(45deg); }
 
-        /* ══ WHATSAPP ══ */
         .whatsapp {
-            position: fixed;
-            bottom: 26px; right: 26px;
-            background: #25D366;
-            color: white;
-            border-radius: 50px;
-            padding: 14px 22px;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 0.85rem;
-            letter-spacing: 0.03em;
+            position: fixed; bottom: 26px; right: 26px;
+            background: #25D366; color: white; border-radius: 50px;
+            padding: 14px 22px; text-decoration: none; font-weight: 500;
+            font-size: 0.85rem; letter-spacing: 0.03em;
             box-shadow: 0 6px 24px rgba(37,211,102,0.4);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.3s;
-            z-index: 1000;
+            display: flex; align-items: center; gap: 8px;
+            transition: all 0.3s; z-index: 1000;
         }
         .whatsapp:hover { transform: scale(1.05); box-shadow: 0 8px 28px rgba(37,211,102,0.5); }
 
         .scroll-top {
-            position: fixed;
-            bottom: 82px; right: 28px;
-            width: 44px; height: 44px;
-            border-radius: 50%;
-            background: var(--ink);
-            color: white;
+            position: fixed; bottom: 82px; right: 28px;
+            width: 44px; height: 44px; border-radius: 50%;
+            background: var(--ink); color: white;
             border: 1px solid rgba(255,255,255,0.15);
-            cursor: pointer;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            font-size: 1rem;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.2);
-            transition: all 0.3s;
-            z-index: 999;
+            cursor: pointer; display: none;
+            align-items: center; justify-content: center;
+            font-size: 1rem; box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+            transition: all 0.3s; z-index: 999;
         }
         .scroll-top:hover { background: var(--rose); border-color: var(--rose); }
 
         #pageFlipCanvas {
-            display: none;
-            position: fixed;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 99999;
-            pointer-events: none;
+            display: none; position: fixed; inset: 0;
+            width: 100%; height: 100%; z-index: 99999; pointer-events: none;
         }
 
         @keyframes fadeUp {
@@ -694,17 +466,23 @@
             .brand-sub { font-size: 0.9rem; }
             .hero-deco-line { margin-bottom: 22px; }
             .hero-arc { display: none; }
+
+            /* ── NAV CENTRALIZADO NO MOBILE ── */
             nav {
-                padding: 10px 12px;
+                padding: 12px 16px;
                 gap: 8px;
-                justify-content: flex-start;
-                overflow-x: auto;
-                -webkit-overflow-scrolling: touch;
-                scrollbar-width: none;
-                flex-wrap: nowrap;
+                justify-content: center;
+                flex-wrap: wrap;
             }
-            nav::-webkit-scrollbar { display: none; }
-            nav a { padding: 10px 18px; font-size: 0.75rem; white-space: nowrap; flex-shrink: 0; letter-spacing: 0.08em; }
+            nav a {
+                padding: 10px 18px;
+                font-size: 0.75rem;
+                letter-spacing: 0.08em;
+                flex: 0 1 calc(50% - 8px);
+                justify-content: center;
+                text-align: center;
+            }
+
             .prefacio { padding: 50px 20px 60px; }
             .prefacio-inner { grid-template-columns: 1fr; gap: 36px; }
             .prefacio-bg-text { font-size: 10rem; bottom: -10px; right: -10px; }
@@ -742,21 +520,18 @@
 <div class="cursor" id="cursor"></div>
 <div class="cursor-ring" id="cursorRing"></div>
 
-<!-- ══ HERO ══ -->
 <section class="hero" id="inicio">
     <div class="hero-bg" id="heroBg">
         <div class="hero-circle-bg"></div>
         <div class="hero-arc" style="width:700px;height:700px;top:50%;left:50%;transform:translate(-50%,-50%);"></div>
         <div class="hero-arc" style="width:500px;height:500px;top:50%;left:50%;transform:translate(-50%,-50%);"></div>
     </div>
-
     <div class="hero-content">
         <div class="hero-deco-line">
             <span class="deco-dash"></span>
             <span>Ateliê artesanal</span>
             <span class="deco-dash"></span>
         </div>
-
         <div class="logo-frame">
             <div class="logo-frame-ring"></div>
             <div class="logo-frame-ring-2">
@@ -768,13 +543,11 @@
             <img src="pessoa.jpeg" alt="Deb/Ateliê" class="logo-img"
                  onerror="this.outerHTML='<div style=width:180px;height:180px;border-radius:50%;background:var(--blush);display:flex;align-items:center;justify-content:center;font-size:4rem;border:3px solid white;box-shadow:0 8px 40px rgba(0,0,0,.12)>👩</div>'">
         </div>
-
         <h1 class="brand-title">Deb<em>/</em>Ateliê</h1>
         <p class="brand-sub">cada peça, uma história</p>
     </div>
 </section>
 
-<!-- ══ NAV ══ -->
 <nav>
     <a href="bolsa.html">Bolsas</a>
     <a href="tapetes.html">Tapetes</a>
@@ -782,7 +555,6 @@
     <a href="bebes.html">Bebês</a>
 </nav>
 
-<!-- ══ PREFÁCIO ══ -->
 <div class="prefacio" id="prefacio">
     <div class="prefacio-bg-text">D</div>
     <div class="prefacio-inner">
@@ -817,7 +589,6 @@
     </div>
 </div>
 
-<!-- ══ SUMÁRIO ══ -->
 <section class="sumario" id="sumario">
     <div class="sumario-header">
         <div class="sumario-eyebrow">
@@ -828,7 +599,6 @@
         <h2>Su<em>mário</em></h2>
         <p class="sumario-sub">navegue pelos capítulos</p>
     </div>
-
     <div class="sumario-list">
         <div class="sumario-item">
             <div class="sumario-item-left">
@@ -879,7 +649,6 @@
             <a href="autora.html" class="sumario-btn">›</a>
         </div>
     </div>
-
     <div class="sumario-pagina">
         <div class="pag-track">
             <span class="pag-label">página</span>
@@ -890,7 +659,6 @@
     </div>
 </section>
 
-<!-- ══ FOOTER ══ -->
 <footer id="contato">
     <div class="footer-ornament">
         <span class="orn-line"></span>
@@ -909,7 +677,6 @@
 <canvas id="pageFlipCanvas"></canvas>
 
 <script>
-/* ══ CURSOR ══ */
 var isTouchDevice = ('ontouchstart' in window) || navigator.maxTouchPoints > 0;
 var cur = document.getElementById('cursor');
 var ring = document.getElementById('cursorRing');
@@ -930,7 +697,6 @@ if (isTouchDevice) {
     });
 }
 
-/* ══ FAIXAS VERTICAIS DO HERO ══ */
 (function() {
     var bg = document.getElementById('heroBg');
     var W = window.innerWidth, num = 28;
@@ -943,12 +709,10 @@ if (isTouchDevice) {
     }
 })();
 
-/* ══ SCROLL TOP ══ */
 var sb = document.getElementById('scrollTop');
 window.addEventListener('scroll', function() { sb.style.display = window.scrollY > 300 ? 'flex' : 'none'; });
 sb.addEventListener('click', function() { window.scrollTo({ top: 0, behavior: 'smooth' }); });
 
-/* ══ INDICADOR PÁGINA ══ */
 (function() {
     var items = document.querySelectorAll('.sumario-item');
     var ind = document.getElementById('pagAtual');
@@ -961,7 +725,6 @@ sb.addEventListener('click', function() { window.scrollTo({ top: 0, behavior: 's
     });
 })();
 
-/* ══ VIRAR PÁGINA ══ */
 (function() {
     var canvas = document.getElementById('pageFlipCanvas');
     var ctx = canvas.getContext('2d');
@@ -1060,7 +823,6 @@ sb.addEventListener('click', function() { window.scrollTo({ top: 0, behavior: 's
     });
 })();
 
-/* ══ PARALLAX ══ */
 window.addEventListener('scroll', function() {
     var s = window.scrollY;
     var bg = document.querySelector('.hero-circle-bg');
